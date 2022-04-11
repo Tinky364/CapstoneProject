@@ -7,8 +7,36 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Exceptions" />
-      <Folder Include="Models" />
+      <None Remove="Icons\user.png" />
+      <None Remove="Icons\automatic.png" />
+      <Resource Include="Icons\AutomaticOnOff.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\battery.png" />
+      <Resource Include="Icons\BatteryPercentage.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\link.png" />
+      <Resource Include="Icons\ConnectionStatus.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\on-time.png" />
+      <Resource Include="Icons\OnTime.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\stopwatch.png" />
+      <Resource Include="Icons\OffTime.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\fingerprint.png" />
+      <Resource Include="Icons\Id.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\Name.png" />
+      <None Remove="Icons\lamp.png" />
+      <Resource Include="Icons\Name.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 
 </Project>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CapstoneProject.Services;
 
 namespace CapstoneProject
 {
@@ -21,5 +22,10 @@ namespace CapstoneProject
     public partial class MainWindow : Window
     {
         public MainWindow() { InitializeComponent(); }
+        
+        private void Window_SourceInitialized(object sender, EventArgs ea)
+        {
+            WindowAspectRatioService.Register((Window)sender);
+        }
     }
 }

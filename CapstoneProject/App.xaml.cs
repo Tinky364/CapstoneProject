@@ -19,11 +19,16 @@ namespace CapstoneProject
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigationStore.CurrentViewModel = CreateFirstExampleViewModel();
+            _navigationStore.CurrentViewModel = CreateLampAnalysisViewModel();
             
             MainWindow = new MainWindow {DataContext = new MainViewModel(_navigationStore)};
             MainWindow.Show();
             base.OnStartup(e);
+        }
+
+        private LampAnalysisViewModel CreateLampAnalysisViewModel()
+        {
+            return new LampAnalysisViewModel();
         }
 
         private FirstExampleViewModel CreateFirstExampleViewModel()
