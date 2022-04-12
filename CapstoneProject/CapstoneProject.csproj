@@ -9,7 +9,7 @@
     <ItemGroup>
       <None Remove="Icons\user.png" />
       <None Remove="Icons\automatic.png" />
-      <Resource Include="Icons\AutomaticOnOff.png">
+      <Resource Include="Icons\AutomatedOnOff.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <None Remove="Icons\battery.png" />
@@ -35,6 +35,10 @@
       <None Remove="Icons\Name.png" />
       <None Remove="Icons\lamp.png" />
       <Resource Include="Icons\Name.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\Setting.png" />
+      <Resource Include="Icons\Setting.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
     </ItemGroup>

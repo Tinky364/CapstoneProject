@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using CapstoneProject.Models;
 using CapstoneProject.Services;
 using CapstoneProject.Stores;
 using CapstoneProject.ViewModels;
@@ -10,6 +12,8 @@ namespace CapstoneProject
     /// </summary>
     public partial class App : Application
     {
+        private Lamp _lamp;
+        
         private readonly NavigationStore _navigationStore;
 
         public App()
@@ -19,18 +23,32 @@ namespace CapstoneProject
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigationStore.CurrentViewModel = CreateLampAnalysisViewModel();
+            _lamp = new Lamp(
+                123, "MyLamp", true, new TimeSpan(18, 0, 0), new TimeSpan(4, 0, 0), 95, true
+            );
             
+            _navigationStore.CurrentViewModel = CreateLampAnalysisViewModel();
             MainWindow = new MainWindow {DataContext = new MainViewModel(_navigationStore)};
             MainWindow.Show();
+            
             base.OnStartup(e);
         }
 
         private LampAnalysisViewModel CreateLampAnalysisViewModel()
         {
-            return new LampAnalysisViewModel();
+            return new LampAnalysisViewModel(
+                _lamp, new NavigationService(_navigationStore, CreateLampSettingsViewModel)
+            );
         }
 
+        private LampSettingsViewModel CreateLampSettingsViewModel()
+        {
+            return new LampSettingsViewModel(
+                _lamp, new NavigationService(_navigationStore, CreateLampAnalysisViewModel)
+            );
+        }
+
+#region Examples
         private FirstExampleViewModel CreateFirstExampleViewModel()
         {
             return new FirstExampleViewModel(
@@ -44,5 +62,6 @@ namespace CapstoneProject
                 new NavigationService(_navigationStore, CreateFirstExampleViewModel)
             );
         }
+#endregion
     }
 }

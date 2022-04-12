@@ -14,12 +14,14 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!--  Headers  -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="1.8*" />
             </Grid.ColumnDefinitions>
 
+            <!--  Overview Header  -->
             <Border
                 Grid.Column="0"
                 Margin="5,5"
@@ -32,6 +34,7 @@
                     Text="Lamp Overview" />
             </Border>
 
+            <!--  Daily Analysis Header  -->
             <Border
                 Grid.Column="1"
                 Margin="5,5"
@@ -45,6 +48,7 @@
             </Border>
         </Grid>
 
+        <!--  Contents  -->
         <Grid
             Grid.Row="1"
             HorizontalAlignment="Stretch"
@@ -54,6 +58,7 @@
                 <ColumnDefinition Width="1.8*" />
             </Grid.ColumnDefinitions>
 
+            <!--  Overview Content  -->
             <Border
                 Grid.Column="0"
                 Margin="5,5"
@@ -82,110 +87,191 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
+                        <!--  Name  -->
                         <Image
                             Grid.Row="0"
                             Grid.Column="0"
                             Margin="7"
                             Source="pack://application:,,,/Icons/Name.png"
                             Stretch="Uniform" />
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource Property}"
+                                Text="Name:" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding LampViewModel.Name}" />
+                        </StackPanel>
+
+                        <!--  Id  -->
                         <Image
                             Grid.Row="1"
                             Grid.Column="0"
                             Margin="7"
                             Source="pack://application:,,,/Icons/Id.png"
                             Stretch="Uniform" />
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource Property}"
+                                Text="ID:" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding LampViewModel.Id}" />
+                        </StackPanel>
+
+                        <!--  Connection Status  -->
                         <Image
                             Grid.Row="2"
                             Grid.Column="0"
                             Margin="7"
                             Source="pack://application:,,,/Icons/ConnectionStatus.png"
                             Stretch="Uniform" />
+                        <StackPanel
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource Property}"
+                                Text="Connection Status:" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding LampViewModel.ConnectionStatus}" />
+                        </StackPanel>
+
+                        <!--  Battery Percentage  -->
                         <Image
                             Grid.Row="3"
                             Grid.Column="0"
                             Margin="7"
                             Source="pack://application:,,,/Icons/BatteryPercentage.png"
                             Stretch="Uniform" />
+                        <StackPanel
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource Property}"
+                                Text="Battery Percentage:" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding LampViewModel.BatteryPercentage}" />
+                        </StackPanel>
+
+                        <!--  On Time  -->
                         <Image
                             Grid.Row="4"
                             Grid.Column="0"
                             Margin="7"
                             Source="pack://application:,,,/Icons/OnTime.png"
                             Stretch="Uniform" />
+                        <StackPanel
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource Property}"
+                                Text="On Time:" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding LampViewModel.OnTime}" />
+                        </StackPanel>
+
+                        <!--  Off Time  -->
                         <Image
                             Grid.Row="5"
                             Grid.Column="0"
                             Margin="7"
                             Source="pack://application:,,,/Icons/OffTime.png"
                             Stretch="Uniform" />
+                        <StackPanel
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource Property}"
+                                Text="Off Time:" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding LampViewModel.OffTime}" />
+                        </StackPanel>
+
+                        <!--  Automated On/Off  -->
                         <Image
                             Grid.Row="6"
                             Grid.Column="0"
                             Margin="7"
-                            Source="pack://application:,,,/Icons/AutomaticOnOff.png"
+                            Source="pack://application:,,,/Icons/AutomatedOnOff.png"
                             Stretch="Uniform" />
-
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="5,0,5,0"
-                            VerticalAlignment="Center"
-                            Text="Name:" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="5,0,5,0"
-                            VerticalAlignment="Center"
-                            Text="ID:" />
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="Connection Status:" />
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="Battery Percentage:" />
-                        <TextBlock
-                            Grid.Row="4"
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="On Time:" />
-                        <TextBlock
-                            Grid.Row="5"
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="Off Time:" />
-                        <TextBlock
+                        <StackPanel
                             Grid.Row="6"
                             Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Text="Automatic On/Off:" />
+                            Margin="5,0,10,0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource Property}"
+                                Text="Automated On/Off:" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding LampViewModel.Automated}" />
+                        </StackPanel>
                     </Grid>
 
+                    <!--  Settings Button  -->
                     <StackPanel
                         Grid.Row="1"
                         HorizontalAlignment="Right"
                         Orientation="Horizontal">
                         <Button
-                            Margin="20,2,20,2"
-                            Padding="20,0"
+                            Margin="20,2,2,2"
+                            Padding="5"
                             Background="SlateGray"
-                            BorderBrush="Black"
+                            BorderBrush="OrangeRed"
                             BorderThickness="3"
-                            Content="Settings">
+                            Command="{Binding GoToLampSettingsView}">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="7" />
                                 </Style>
                             </Button.Resources>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="pack://application:,,,/Icons/Setting.png" Stretch="Uniform" />
+                                <TextBlock
+                                    Margin="5,0"
+                                    VerticalAlignment="Center"
+                                    Text="Settings" />
+                            </StackPanel>
                         </Button>
                     </StackPanel>
-
                 </Grid>
             </Border>
 
+            <!--  Daily Analysis Content  -->
             <ListView Grid.Column="1" Margin="5,5">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">

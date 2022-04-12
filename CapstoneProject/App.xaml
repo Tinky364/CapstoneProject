@@ -13,5 +13,11 @@
             <Setter Property="Foreground" Value="Coral" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
+
+        <Style x:Key="Property" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Foreground" Value="Crimson" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
     </Application.Resources>
 </Application>
