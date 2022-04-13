@@ -27,26 +27,40 @@ namespace CapstoneProject
                 123, "MyLamp", true, new TimeSpan(18, 0, 0), new TimeSpan(4, 0, 0), 95, true
             );
             
-            _navigationStore.CurrentViewModel = CreateLampAnalysisViewModel();
+            _navigationStore.CurrentViewModel = Create_LampConnectedViewModel();
             MainWindow = new MainWindow {DataContext = new MainViewModel(_navigationStore)};
             MainWindow.Show();
             
             base.OnStartup(e);
         }
 
-        private LampAnalysisViewModel CreateLampAnalysisViewModel()
+#region View Creators
+        private LampConnectedViewModel Create_LampConnectedViewModel()
         {
-            return new LampAnalysisViewModel(
-                _lamp, new NavigationService(_navigationStore, CreateLampSettingsViewModel)
+            return new LampConnectedViewModel(
+                Create_LampOverviewViewModel(), Create_LampDailyAnalysisViewModel() 
             );
         }
 
-        private LampSettingsViewModel CreateLampSettingsViewModel()
+        private LampSettingsViewModel Create_LampSettingsViewModel()
         {
             return new LampSettingsViewModel(
-                _lamp, new NavigationService(_navigationStore, CreateLampAnalysisViewModel)
+                _lamp, new NavigationService(_navigationStore, Create_LampConnectedViewModel)
             );
         }
+        
+        private LampOverviewViewModel Create_LampOverviewViewModel()
+        {
+            return new LampOverviewViewModel(
+                _lamp, new NavigationService(_navigationStore, Create_LampSettingsViewModel)
+            );
+        }
+        
+        private LampDailyAnalysisViewModel Create_LampDailyAnalysisViewModel()
+        {
+            return new LampDailyAnalysisViewModel(_lamp);
+        }
+#endregion
 
 #region Examples
         private FirstExampleViewModel CreateFirstExampleViewModel()

@@ -5,18 +5,15 @@ using CapstoneProject.Services;
 
 namespace CapstoneProject.ViewModels
 {
-    public class LampAnalysisViewModel : ViewModelBase
+    public class LampOverviewViewModel : ViewModelBase
     {
-        private readonly Lamp _lamp;
-
         public LampViewModel LampViewModel { get; }
         
         public ICommand GoToLampSettingsView { get; }
-
-        public LampAnalysisViewModel(Lamp lamp, NavigationService lampSettingsViewNavigationService)
+        
+        public LampOverviewViewModel(Lamp lamp, NavigationService lampSettingsViewNavigationService)
         {
-            _lamp = lamp;
-            LampViewModel = new LampViewModel(_lamp);
+            LampViewModel = new LampViewModel(lamp);
             GoToLampSettingsView = new NavigateCommand(lampSettingsViewNavigationService);
         }
     }

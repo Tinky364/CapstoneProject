@@ -23,20 +23,20 @@
                 <!--     <views:$VIEW_NAME$ /> -->
                 <!-- </DataTemplate> -->
 
-                <DataTemplate DataType="{x:Type vms:LampAnalysisViewModel}">
-                    <views:LampAnalysisView />
+                <DataTemplate DataType="{x:Type vms:LampConnectedViewModel}">
+                    <views:LampConnectedView />
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type vms:LampSettingsViewModel}">
                     <views:LampSettingsView />
                 </DataTemplate>
 
-                <DataTemplate DataType="{x:Type vms:FirstExampleViewModel}">
-                    <views:FirstExampleView />
+                <DataTemplate DataType="{x:Type vms:LampOverviewViewModel}">
+                    <views:LampOverviewView />
                 </DataTemplate>
 
-                <DataTemplate DataType="{x:Type vms:SecondExampleViewModel}">
-                    <views:SecondExampleView />
+                <DataTemplate DataType="{x:Type vms:LampDailyAnalysisViewModel}">
+                    <views:LampDailyAnalysisView />
                 </DataTemplate>
             </Grid.Resources>
 
