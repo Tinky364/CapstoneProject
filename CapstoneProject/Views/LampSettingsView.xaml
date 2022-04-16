@@ -9,19 +9,210 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <Button
-            Margin="20,2,20,2"
-            Padding="20,0"
-            Background="SlateGray"
-            BorderBrush="OrangeRed"
-            BorderThickness="3"
-            Command="{Binding GoToLampAnalysisView}"
-            Content="Return">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="7" />
-                </Style>
-            </Button.Resources>
-        </Button>
+        <Grid.RowDefinitions>
+            <!--  Headers definition  -->
+            <RowDefinition Height="Auto" />
+            <!--  Contents definition  -->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Headers  -->
+        <!--  Settings Header  -->
+        <Border
+            Grid.Row="0"
+            Margin="5,5"
+            Style="{StaticResource PanelBorder}">
+
+            <TextBlock
+                Margin="10,0"
+                Style="{StaticResource Header}"
+                Text="Lamp Settings" />
+        </Border>
+
+        <!--  Contents  -->
+        <!--  Settings Content  -->
+        <Border
+            Grid.Row="1"
+            Margin="5,5"
+            Style="{StaticResource PanelBorder}">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <!--  Lamp Settings definition  -->
+                    <RowDefinition Height="4*" />
+                    <!--  Buttons definition  -->
+                    <RowDefinition Height="*" MaxHeight="60" />
+                </Grid.RowDefinitions>
+
+                <!--  Lamp Settings  -->
+                <Grid Grid.Row="0" IsSharedSizeScope="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" MaxHeight="60" />
+                        <RowDefinition Height="*" MaxHeight="60" />
+                        <RowDefinition Height="*" MaxHeight="60" />
+                        <RowDefinition Height="*" MaxHeight="60" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Name  -->
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource AntiquePropertyBorder}" />
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            MaxHeight="60"
+                            Margin="7"
+                            Source="pack://application:,,,/Icons/Name.png"
+                            Stretch="Uniform" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource Property}"
+                            Text="Name:" />
+                        <TextBox Grid.Column="2" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <!--  On Time  -->
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{StaticResource FloralPropertyBorder}" />
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            MaxHeight="60"
+                            Margin="7"
+                            Source="pack://application:,,,/Icons/OnTime.png"
+                            Stretch="Uniform" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource Property}"
+                            Text="On Time:" />
+                        <TextBox Grid.Column="2" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <!--  Off Time  -->
+                    <Border
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{StaticResource AntiquePropertyBorder}" />
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            MaxHeight="60"
+                            Margin="7"
+                            Source="pack://application:,,,/Icons/OffTime.png"
+                            Stretch="Uniform" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource Property}"
+                            Text="Off Time:" />
+                        <TextBox Grid.Column="2" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <!--  Automated Turn On/Off  -->
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Style="{StaticResource FloralPropertyBorder}" />
+                    <Grid Grid.Row="3" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            MaxHeight="60"
+                            Margin="7"
+                            Source="pack://application:,,,/Icons/AutomatedOnOff.png"
+                            Stretch="Uniform" />
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            VerticalAlignment="Center">
+                            <TextBlock
+                                Margin="0,0,0,-5"
+                                Style="{StaticResource Property}"
+                                Text="Automated" />
+                            <TextBlock Style="{StaticResource Property}" Text="Turn On/Off:" />
+                        </StackPanel>
+                        <CheckBox Grid.Column="2" VerticalAlignment="Center">
+                            <CheckBox.LayoutTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2" />
+                            </CheckBox.LayoutTransform>
+                        </CheckBox>
+                    </Grid>
+                </Grid>
+
+                <!--  Buttons  -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Return Button  -->
+                    <Button
+                        Grid.Column="0"
+                        MinWidth="75"
+                        Margin="3,0,0,3"
+                        Command="{Binding GoToLampAnalysisView}"
+                        Content="Return"
+                        Style="{StaticResource Button}">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="7" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <!--  Save Button  -->
+                    <Button
+                        Grid.Column="2"
+                        MinWidth="75"
+                        Margin="0,0,3,3"
+                        HorizontalAlignment="Right"
+                        Content="Save"
+                        Style="{StaticResource Button}">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="7" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

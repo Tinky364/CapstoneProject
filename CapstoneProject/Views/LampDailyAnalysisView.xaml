@@ -8,15 +8,19 @@
     d:DesignHeight="300"
     d:DesignWidth="500"
     mc:Ignorable="d">
-    <ListView Margin="5,5">
+    <ListView
+        Margin="5,5"
+        HorizontalContentAlignment="Stretch"
+        Background="LightGray">
         <ListView.ItemContainerStyle>
             <Style TargetType="ListViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
         </ListView.ItemContainerStyle>
+
         <ListView.View>
             <GridView>
-                <GridViewColumn Width="100" Header="Date">
+                <GridViewColumn Header="Date">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock HorizontalAlignment="Center" Text="" />
@@ -24,7 +28,7 @@
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
 
-                <GridViewColumn Width="180" Header="Battery Charge Time">
+                <GridViewColumn Header="Battery Charge Time">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Padding="0,0,20,0" Text="" />
@@ -32,7 +36,7 @@
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
 
-                <GridViewColumn Width="180" Header="Battery Consumption Time">
+                <GridViewColumn Header="Battery Consumption Time">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Padding="0,0,20,0" Text="" />
