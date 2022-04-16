@@ -29,6 +29,10 @@ namespace CapstoneProject.Commands
                 _lamp.Automated = _lampSettingsViewModel.Automated;
                 
                 _lampSettingsViewModel.Name = _lamp.Name;
+                _lampSettingsViewModel.OnTimeHour = _lamp.OnTime.ToString(@"hh");
+                _lampSettingsViewModel.OnTimeMin = _lamp.OnTime.ToString(@"mm");
+                _lampSettingsViewModel.OffTimeHour = _lamp.OffTime.ToString(@"hh");
+                _lampSettingsViewModel.OffTimeMin = _lamp.OffTime.ToString(@"mm");
                 
                 MessageBox.Show(
                     "Successfully saved.", "Success", MessageBoxButton.OK,
