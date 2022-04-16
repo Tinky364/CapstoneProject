@@ -13,13 +13,7 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <None Remove="Icons\battery.png" />
-      <Resource Include="Icons\BatteryPercentage.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Icons\link.png" />
-      <Resource Include="Icons\ConnectionStatus.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Icons\on-time.png" />
       <Resource Include="Icons\OnTime.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -38,7 +32,24 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <None Remove="Icons\Setting.png" />
-      <Resource Include="Icons\Setting.png">
+      <None Remove="Icons\BatteryPercentage.png" />
+      <Resource Include="Icons\BatteryPercentage.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\ConnectionStatus.png" />
+      <Resource Include="Icons\ConnectionStatus.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\Return.png" />
+      <Resource Include="Icons\Return.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\Save.png" />
+      <Resource Include="Icons\Save.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Icons\Settings.png" />
+      <Resource Include="Icons\Settings.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
     </ItemGroup>

@@ -29,9 +29,36 @@
                     <RowDefinition Height="*" MaxHeight="60" />
                 </Grid.RowDefinitions>
 
-                <!--  Name  -->
+                <!--  Id  -->
                 <Border Grid.Row="0" Style="{StaticResource AntiquePropertyBorder}" />
                 <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Grid.Column="0"
+                        MaxHeight="60"
+                        Margin="7"
+                        Source="pack://application:,,,/Icons/Id.png"
+                        Stretch="Uniform" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="5,0,10,0"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource Property}"
+                        Text="ID:" />
+                    <TextBlock
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Text="{Binding LampViewModel.Id}" />
+                </Grid>
+
+                <!--  Name  -->
+                <Border Grid.Row="1" Style="{StaticResource FloralPropertyBorder}" />
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
@@ -55,33 +82,6 @@
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         Text="{Binding LampViewModel.Name}" />
-                </Grid>
-
-                <!--  Id  -->
-                <Border Grid.Row="1" Style="{StaticResource FloralPropertyBorder}" />
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Image
-                        Grid.Column="0"
-                        MaxHeight="60"
-                        Margin="7"
-                        Source="pack://application:,,,/Icons/Id.png"
-                        Stretch="Uniform" />
-                    <TextBlock
-                        Grid.Column="1"
-                        Margin="5,0,10,0"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource Property}"
-                        Text="ID:" />
-                    <TextBlock
-                        Grid.Column="2"
-                        VerticalAlignment="Center"
-                        Text="{Binding LampViewModel.Id}" />
                 </Grid>
 
                 <!--  Connection Status  -->
@@ -112,7 +112,7 @@
                     <TextBlock
                         Grid.Column="2"
                         VerticalAlignment="Center"
-                        Text="{Binding LampViewModel.ConnectionStatus}" />
+                        Text="{Binding ConnectionStatus}" />
                 </Grid>
 
                 <!--  Battery Percentage  -->
@@ -228,7 +228,7 @@
                     <TextBlock
                         Grid.Column="2"
                         VerticalAlignment="Center"
-                        Text="{Binding LampViewModel.Automated}" />
+                        Text="{Binding Automated}" />
                 </Grid>
             </Grid>
 
@@ -241,7 +241,7 @@
                 <!--  Settings Button  -->
                 <Button
                     Margin="3"
-                    Command="{Binding GoToLampSettingsView}"
+                    Command="{Binding GoToLampSettingsViewCommand}"
                     Style="{StaticResource Button}">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -252,7 +252,7 @@
                         <Image
                             MaxHeight="60"
                             Margin="5"
-                            Source="pack://application:,,,/Icons/Setting.png"
+                            Source="pack://application:,,,/Icons/Settings.png"
                             Stretch="Uniform" />
                         <TextBlock
                             Margin="0,0,5,0"

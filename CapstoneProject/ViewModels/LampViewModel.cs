@@ -8,11 +8,11 @@ namespace CapstoneProject.ViewModels
 
         public string Id => _lamp.Id.ToString();
         public string Name => _lamp.Name;
-        public string ConnectionStatus => _lamp.ConnectionStatus ? "Connected" : "Disconnected";
+        public bool ConnectionStatus => _lamp.ConnectionStatus;
         public string OnTime => _lamp.OnTime.ToString();
         public string OffTime => _lamp.OffTime.ToString();
         public string BatteryPercentage => _lamp.BatteryPercentage.ToString();
-        public string Automated => _lamp.Automated ? "On" : "Off";
+        public bool Automated => _lamp.Automated;
 
         public LampViewModel(Lamp lamp)
         {

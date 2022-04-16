@@ -7,12 +7,12 @@ namespace CapstoneProject.Models
     public class Lamp
     {
         public int Id { get; }
-        public string Name { get; }
+        public string Name { get; set; }
         public bool ConnectionStatus { get; }
-        public TimeSpan OnTime { get; }
-        public TimeSpan OffTime { get; }
+        public TimeSpan OnTime { get; set; }
+        public TimeSpan OffTime { get; set; }
         public int BatteryPercentage { get; }
-        public bool Automated { get; }
+        public bool Automated { get; set; }
 
         private readonly List<LampDailyData> _dailyDataList;
 

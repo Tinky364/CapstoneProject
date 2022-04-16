@@ -34,7 +34,7 @@ namespace CapstoneProject
             base.OnStartup(e);
         }
 
-#region View Creators
+#region View Model Creators
         private LampConnectedViewModel Create_LampConnectedViewModel()
         {
             return new LampConnectedViewModel(
@@ -59,22 +59,6 @@ namespace CapstoneProject
         private LampDailyAnalysisViewModel Create_LampDailyAnalysisViewModel()
         {
             return new LampDailyAnalysisViewModel(_lamp);
-        }
-#endregion
-
-#region Examples
-        private FirstExampleViewModel CreateFirstExampleViewModel()
-        {
-            return new FirstExampleViewModel(
-                new NavigationService(_navigationStore, CreateSecondExampleViewModel)
-            );
-        }
-        
-        private SecondExampleViewModel CreateSecondExampleViewModel()
-        {
-            return new SecondExampleViewModel(
-                new NavigationService(_navigationStore, CreateFirstExampleViewModel)
-            );
         }
 #endregion
     }

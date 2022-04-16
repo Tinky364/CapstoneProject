@@ -39,7 +39,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <!--  Lamp Settings definition  -->
-                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="6*" />
                     <!--  Buttons definition  -->
                     <RowDefinition Height="*" MaxHeight="60" />
                 </Grid.RowDefinitions>
@@ -51,18 +51,50 @@
                         <RowDefinition Height="*" MaxHeight="60" />
                         <RowDefinition Height="*" MaxHeight="60" />
                         <RowDefinition Height="*" MaxHeight="60" />
+                        <RowDefinition Height="*" MaxHeight="60" />
+                        <RowDefinition Height="*" MaxHeight="60" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!--  Name  -->
+                    <!--  Id  -->
                     <Border
                         Grid.Row="0"
                         Grid.Column="0"
                         Style="{StaticResource AntiquePropertyBorder}" />
                     <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            MaxHeight="60"
+                            Margin="7"
+                            Source="pack://application:,,,/Icons/Id.png"
+                            Stretch="Uniform" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="5,0,10,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource Property}"
+                            Text="ID:" />
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Text="{Binding LampViewModel.Id}" />
+                    </Grid>
+
+                    <!--  Name  -->
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{StaticResource FloralPropertyBorder}" />
+                    <Grid Grid.Row="1" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
@@ -81,15 +113,18 @@
                             VerticalAlignment="Center"
                             Style="{StaticResource Property}"
                             Text="Name:" />
-                        <TextBox Grid.Column="2" VerticalAlignment="Center" />
+                        <TextBox
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
 
                     <!--  On Time  -->
                     <Border
-                        Grid.Row="1"
+                        Grid.Row="2"
                         Grid.Column="0"
-                        Style="{StaticResource FloralPropertyBorder}" />
-                    <Grid Grid.Row="1" Grid.Column="0">
+                        Style="{StaticResource AntiquePropertyBorder}" />
+                    <Grid Grid.Row="2" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
@@ -108,15 +143,18 @@
                             VerticalAlignment="Center"
                             Style="{StaticResource Property}"
                             Text="On Time:" />
-                        <TextBox Grid.Column="2" VerticalAlignment="Center" />
+                        <TextBox
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Text="{Binding OnTime, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
 
                     <!--  Off Time  -->
                     <Border
-                        Grid.Row="2"
+                        Grid.Row="3"
                         Grid.Column="0"
-                        Style="{StaticResource AntiquePropertyBorder}" />
-                    <Grid Grid.Row="2" Grid.Column="0">
+                        Style="{StaticResource FloralPropertyBorder}" />
+                    <Grid Grid.Row="3" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
@@ -135,15 +173,18 @@
                             VerticalAlignment="Center"
                             Style="{StaticResource Property}"
                             Text="Off Time:" />
-                        <TextBox Grid.Column="2" VerticalAlignment="Center" />
+                        <TextBox
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Text="{Binding OffTime, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
 
                     <!--  Automated Turn On/Off  -->
                     <Border
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Grid.Column="0"
-                        Style="{StaticResource FloralPropertyBorder}" />
-                    <Grid Grid.Row="3" Grid.Column="0">
+                        Style="{StaticResource AntiquePropertyBorder}" />
+                    <Grid Grid.Row="4" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
@@ -166,7 +207,10 @@
                                 Text="Automated" />
                             <TextBlock Style="{StaticResource Property}" Text="Turn On/Off:" />
                         </StackPanel>
-                        <CheckBox Grid.Column="2" VerticalAlignment="Center">
+                        <CheckBox
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            IsChecked="{Binding Automated, UpdateSourceTrigger=PropertyChanged}">
                             <CheckBox.LayoutTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2" />
                             </CheckBox.LayoutTransform>
@@ -187,14 +231,24 @@
                         Grid.Column="0"
                         MinWidth="75"
                         Margin="3,0,0,3"
-                        Command="{Binding GoToLampAnalysisView}"
-                        Content="Return"
+                        Command="{Binding GoToLampAnalysisViewCommand}"
                         Style="{StaticResource Button}">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="7" />
                             </Style>
                         </Button.Resources>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                MaxHeight="60"
+                                Margin="5"
+                                Source="pack://application:,,,/Icons/Return.png"
+                                Stretch="Uniform" />
+                            <TextBlock
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                Text="Return" />
+                        </StackPanel>
                     </Button>
 
                     <!--  Save Button  -->
@@ -203,13 +257,24 @@
                         MinWidth="75"
                         Margin="0,0,3,3"
                         HorizontalAlignment="Right"
-                        Content="Save"
+                        Command="{Binding SaveLampSettingsCommand}"
                         Style="{StaticResource Button}">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="7" />
                             </Style>
                         </Button.Resources>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                MaxHeight="60"
+                                Margin="5"
+                                Source="pack://application:,,,/Icons/Save.png"
+                                Stretch="Uniform" />
+                            <TextBlock
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                Text="Save" />
+                        </StackPanel>
                     </Button>
                 </Grid>
             </Grid>
