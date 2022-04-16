@@ -17,11 +17,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <!--  Overview Header  -->
-            <ColumnDefinition Width="175*" MaxWidth="300" />
+            <ColumnDefinition Width="150*" MaxWidth="300" />
             <!--  Grid Splitter definition  -->
             <ColumnDefinition Width="5" />
             <!--  Daily Analysis Header  -->
-            <ColumnDefinition Width="275*" />
+            <ColumnDefinition Width="300*" />
         </Grid.ColumnDefinitions>
 
         <GridSplitter

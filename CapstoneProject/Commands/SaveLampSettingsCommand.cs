@@ -48,9 +48,26 @@ namespace CapstoneProject.Commands
         {
             bool result = true;
 
-            if (string.IsNullOrEmpty(_lampSettingsViewModel.Name) ||
-                string.IsNullOrEmpty(_lampSettingsViewModel.OnTime) ||
-                string.IsNullOrEmpty(_lampSettingsViewModel.OffTime))
+            try
+            {
+                if (string.IsNullOrEmpty(_lampSettingsViewModel.Name) ||
+                    string.IsNullOrEmpty(_lampSettingsViewModel.OnTimeHour) ||
+                    string.IsNullOrEmpty(_lampSettingsViewModel.OnTimeMin) ||
+                    string.IsNullOrEmpty(_lampSettingsViewModel.OffTimeHour) ||
+                    string.IsNullOrEmpty(_lampSettingsViewModel.OffTimeMin))
+                {
+                    result = false;
+                }
+
+                if (_lamp.Name.Equals(_lampSettingsViewModel.Name) &&
+                    _lamp.OnTime == TimeSpan.Parse(_lampSettingsViewModel.OnTime) &&
+                    _lamp.OffTime == TimeSpan.Parse(_lampSettingsViewModel.OffTime) &&
+                    _lamp.Automated == _lampSettingsViewModel.Automated)
+                {
+                    result = false;
+                }
+            }
+            catch (Exception)
             {
                 result = false;
             }
@@ -61,8 +78,10 @@ namespace CapstoneProject.Commands
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(LampSettingsViewModel.Name) ||
-                e.PropertyName == nameof(LampSettingsViewModel.OnTime) ||
-                e.PropertyName == nameof(LampSettingsViewModel.OffTime) ||
+                e.PropertyName == nameof(LampSettingsViewModel.OnTimeHour) ||
+                e.PropertyName == nameof(LampSettingsViewModel.OnTimeMin) ||
+                e.PropertyName == nameof(LampSettingsViewModel.OffTimeHour) ||
+                e.PropertyName == nameof(LampSettingsViewModel.OffTimeMin) ||
                 e.PropertyName == nameof(LampSettingsViewModel.Automated))
             {
                 OnCanExecuteChanged();

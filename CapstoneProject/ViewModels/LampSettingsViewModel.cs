@@ -18,25 +18,47 @@ namespace CapstoneProject.ViewModels
             }
         }
 
-        private string _onTime;
-        public string OnTime
+        public string OnTime => $"{OnTimeHour}:{OnTimeMin}";
+        private string _onTimeHour;
+        public string OnTimeHour
         {
-            get => _onTime;
+            get => _onTimeHour;
             set
             {
-                _onTime = value;
-                OnPropertyChanged(nameof(OnTime));
+                _onTimeHour = value;
+                OnPropertyChanged(nameof(OnTimeHour));
             }
         }
-
-        private string _offTime;
-        public string OffTime
+        private string _onTimeMin;
+        public string OnTimeMin
         {
-            get => _offTime;
+            get => _onTimeMin;
             set
             {
-                _offTime = value;
-                OnPropertyChanged(nameof(OffTime));
+                _onTimeMin = value;
+                OnPropertyChanged(nameof(OnTimeMin));
+            }
+        }
+        
+        public string OffTime => $"{OffTimeHour}:{OffTimeMin}";
+        private string _offTimeHour;
+        public string OffTimeHour
+        {
+            get => _offTimeHour;
+            set
+            {
+                _offTimeHour = value;
+                OnPropertyChanged(nameof(OffTimeHour));
+            }
+        }
+        private string _offTimeMin;
+        public string OffTimeMin
+        {
+            get => _offTimeMin;
+            set
+            {
+                _offTimeMin = value;
+                OnPropertyChanged(nameof(OffTimeMin));
             }
         }
 
@@ -52,17 +74,18 @@ namespace CapstoneProject.ViewModels
         }
         
         public LampViewModel LampViewModel { get; }
-
-        public ICommand GoToLampAnalysisViewCommand { get; }
         
+        public ICommand GoToLampAnalysisViewCommand { get; }
         public ICommand SaveLampSettingsCommand { get; }
 
         public LampSettingsViewModel(Lamp lamp, NavigationService lampAnalysisViewNavigationService)
         {
             LampViewModel = new LampViewModel(lamp);
             _name = LampViewModel.Name;
-            _onTime = LampViewModel.OnTime;
-            _offTime = LampViewModel.OffTime;
+            _onTimeHour = lamp.OnTime.ToString(@"hh");
+            _onTimeMin = lamp.OnTime.ToString(@"mm");
+            _offTimeHour = lamp.OffTime.ToString(@"hh");
+            _offTimeMin = lamp.OffTime.ToString(@"mm");
             _automated = LampViewModel.Automated;
             
             GoToLampAnalysisViewCommand = new NavigateCommand(lampAnalysisViewNavigationService);

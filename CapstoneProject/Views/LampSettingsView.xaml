@@ -116,7 +116,14 @@
                         <TextBox
                             Grid.Column="2"
                             VerticalAlignment="Center"
-                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                            Style="{StaticResource LongTextBox}"
+                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
                     </Grid>
 
                     <!--  On Time  -->
@@ -128,6 +135,9 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
@@ -146,7 +156,34 @@
                         <TextBox
                             Grid.Column="2"
                             VerticalAlignment="Center"
-                            Text="{Binding OnTime, UpdateSourceTrigger=PropertyChanged}" />
+                            Style="{StaticResource ShortTextBox}"
+                            Text="{Binding OnTimeHour, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBlock
+                            Grid.Column="3"
+                            VerticalAlignment="Center"
+                            Text="h" />
+                        <TextBox
+                            Grid.Column="4"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource ShortTextBox}"
+                            Text="{Binding OnTimeMin, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBlock
+                            Grid.Column="5"
+                            VerticalAlignment="Center"
+                            Text="m" />
                     </Grid>
 
                     <!--  Off Time  -->
@@ -158,6 +195,9 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
@@ -176,7 +216,34 @@
                         <TextBox
                             Grid.Column="2"
                             VerticalAlignment="Center"
-                            Text="{Binding OffTime, UpdateSourceTrigger=PropertyChanged}" />
+                            Style="{StaticResource ShortTextBox}"
+                            Text="{Binding OffTimeHour, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBlock
+                            Grid.Column="3"
+                            VerticalAlignment="Center"
+                            Text="h" />
+                        <TextBox
+                            Grid.Column="4"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource ShortTextBox}"
+                            Text="{Binding OffTimeMin, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBlock
+                            Grid.Column="5"
+                            VerticalAlignment="Center"
+                            Text="m" />
                     </Grid>
 
                     <!--  Automated Turn On/Off  -->
@@ -205,15 +272,21 @@
                                 Margin="0,0,0,-5"
                                 Style="{StaticResource Property}"
                                 Text="Automated" />
-                            <TextBlock Style="{StaticResource Property}" Text="Turn On/Off:" />
+                            <TextBlock Style="{StaticResource Property}" Text="Turn On Off:" />
                         </StackPanel>
                         <CheckBox
                             Grid.Column="2"
                             VerticalAlignment="Center"
+                            BorderThickness="0.5"
                             IsChecked="{Binding Automated, UpdateSourceTrigger=PropertyChanged}">
                             <CheckBox.LayoutTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2" />
                             </CheckBox.LayoutTransform>
+                            <CheckBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="3" />
+                                </Style>
+                            </CheckBox.Resources>
                         </CheckBox>
                     </Grid>
                 </Grid>
