@@ -37,6 +37,7 @@
                 </Style>
             </GridSplitter.Resources>
         </GridSplitter>
+
         <!--  Overview Header  -->
         <Border
             Grid.Row="0"

@@ -11,7 +11,8 @@
     <ListView
         Margin="5,5"
         HorizontalContentAlignment="Stretch"
-        Background="LightGray">
+        Background="LightGray"
+        ItemsSource="{Binding LampDailyDataList}">
         <ListView.ItemContainerStyle>
             <Style TargetType="ListViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -23,7 +24,7 @@
                 <GridViewColumn Header="Date">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock HorizontalAlignment="Center" Text="" />
+                            <TextBlock HorizontalAlignment="Center" Text="{Binding DateTime}" />
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
@@ -31,7 +32,7 @@
                 <GridViewColumn Header="Battery Charge Time">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Padding="0,0,20,0" Text="" />
+                            <TextBlock HorizontalAlignment="Center" Text="{Binding BatteryChargeMin}" />
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
@@ -39,7 +40,7 @@
                 <GridViewColumn Header="Battery Consumption Time">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Padding="0,0,20,0" Text="" />
+                            <TextBlock HorizontalAlignment="Center" Text="{Binding BatteryConsumptionMin}" />
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>

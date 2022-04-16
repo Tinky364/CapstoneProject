@@ -26,6 +26,9 @@ namespace CapstoneProject
             _lamp = new Lamp(
                 123, "MyLamp", true, new TimeSpan(18, 0, 0), new TimeSpan(4, 0, 0), 95, true
             );
+            _lamp.AddDailyData(new LampDailyData(new DateTime(2020, 1, 1), 200, 180));
+            _lamp.AddDailyData(new LampDailyData(new DateTime(2020, 1, 2), 260, 230));
+            _lamp.AddDailyData(new LampDailyData(new DateTime(2020, 1, 3), 220, 150));
             
             _navigationStore.CurrentViewModel = Create_LampConnectedViewModel();
             MainWindow = new MainWindow {DataContext = new MainViewModel(_navigationStore)};

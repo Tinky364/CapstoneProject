@@ -5,16 +5,16 @@ namespace CapstoneProject.Models
     public class LampDailyData
     {
         public DateTime DateTime { get; }
-        public float BatteryConsumptionMin { get; }
         public float BatteryChargeMin { get; }
+        public float BatteryConsumptionMin { get; }
 
         public LampDailyData(
-            DateTime dateTime, float batteryConsumptionMin, float batteryChargeMin
+            DateTime dateTime, float batteryChargeMin, float batteryConsumptionMin
         )
         {
             DateTime = dateTime;
-            BatteryConsumptionMin = batteryConsumptionMin;
             BatteryChargeMin = batteryChargeMin;
+            BatteryConsumptionMin = batteryConsumptionMin;
         }
         
         public bool Conflicts(LampDailyData dailyData)
