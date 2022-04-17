@@ -14,21 +14,26 @@ namespace CapstoneProject
     {
         private Lamp _lamp;
         
+        private readonly LampConnectionService _lampConnectionService;
+        private readonly JsonDatabaseService _jsonDatabaseService;
+
         private readonly NavigationStore _navigationStore;
 
         public App()
         {
+            _lampConnectionService = new LampConnectionService();
+            _jsonDatabaseService = new JsonDatabaseService();
             _navigationStore = new NavigationStore();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _lamp = new Lamp(
-                123, "MyLamp", true, new TimeSpan(18, 0, 0), new TimeSpan(4, 0, 0), 95, true
-            );
-            _lamp.AddDailyData(new LampDailyData(new DateTime(2020, 1, 1), 200, 180));
-            _lamp.AddDailyData(new LampDailyData(new DateTime(2020, 1, 2), 260, 230));
-            _lamp.AddDailyData(new LampDailyData(new DateTime(2020, 1, 3), 220, 150));
+            _lamp = _lampConnectionService.ConnectToLamp();
+            
+            _jsonDatabaseService.CatchAllDailyData(_lamp);
+            _jsonDatabaseService.UpdateDailyDataDatabase(_lamp);
+            
+            _lamp.SortAllDailyData();
             
             _navigationStore.CurrentViewModel = Create_LampConnectedViewModel();
             MainWindow = new MainWindow {DataContext = new MainViewModel(_navigationStore)};

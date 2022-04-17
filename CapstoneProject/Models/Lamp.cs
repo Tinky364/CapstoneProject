@@ -48,5 +48,10 @@ namespace CapstoneProject.Models
             
             _dailyDataList.Add(dailyData);
         }
+
+        public void SortAllDailyData()
+        {
+            _dailyDataList.Sort((x, y) => DateTime.Compare(x.DateTime, y.DateTime));
+        }
     }
 }
