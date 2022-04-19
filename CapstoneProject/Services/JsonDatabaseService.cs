@@ -1,20 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using System.Threading.Tasks;
 using CapstoneProject.Models;
 
 namespace CapstoneProject.Services
 {
     public class JsonDatabaseService
     {
-        public void CatchAllDailyData(Lamp lamp)
+        // TODO fix it
+        public async Task CatchAllDailyData(Lamp lamp)
         {
-            lamp.AddDailyData(new LampDailyData(new DateTime(2022, 1, 1), 200, 180));
-            lamp.AddDailyData(new LampDailyData(new DateTime(2022, 1, 2), 260, 230));
-            lamp.AddDailyData(new LampDailyData(new DateTime(2022, 1, 3), 220, 150));
+            string fileName = $"{lamp.Id}.json";
+            string dir = @$"{AppDomain.CurrentDomain.BaseDirectory}DailyData\{fileName}";
+
+            using FileStream stream = File.OpenRead(dir);
+            var dailyDataList = await JsonSerializer.DeserializeAsync<IList<LampDailyData>>(stream);
+            if (dailyDataList != null)
+            {
+                foreach (var dailyData in dailyDataList)
+                {
+                    lamp.AddDailyData(dailyData);
+                }
+            }
         }
         
-        public void UpdateDailyDataDatabase(Lamp lamp)
+        public async Task UpdateDailyDataDatabase(Lamp lamp)
         {
-            
+            string fileName = $"{lamp.Id}.json";
+            string dir = @$"{AppDomain.CurrentDomain.BaseDirectory}DailyData\{fileName}";
+
+            using FileStream stream = File.Create(dir);
+            await JsonSerializer.SerializeAsync(stream, lamp.GetAllDailyData());
+            await stream.DisposeAsync();
         }
     }
 }

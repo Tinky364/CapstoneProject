@@ -23,8 +23,12 @@
                 <!--     <views:$VIEW_NAME$ /> -->
                 <!-- </DataTemplate> -->
 
-                <DataTemplate DataType="{x:Type vms:LampConnectedViewModel}">
-                    <views:LampConnectedView />
+                <DataTemplate DataType="{x:Type vms:LampConnectionViewModel}">
+                    <views:LampConnectionView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type vms:LandingPageViewModel}">
+                    <views:LandingPageView />
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type vms:LampSettingsViewModel}">

@@ -78,9 +78,14 @@ namespace CapstoneProject.ViewModels
         public ICommand GoToLampAnalysisViewCommand { get; }
         public ICommand SaveLampSettingsCommand { get; }
 
-        public LampSettingsViewModel(Lamp lamp, NavigationService lampAnalysisViewNavigationService)
+        public LampSettingsViewModel(
+            ConnectToLampService connectToLampService,
+            NavigationService lampAnalysisViewNavigationService)
         {
+            Lamp lamp = connectToLampService.GetConnectedLamp();
+            
             LampViewModel = new LampViewModel(lamp);
+            
             _name = LampViewModel.Name;
             _onTimeHour = lamp.OnTime.ToString(@"hh");
             _onTimeMin = lamp.OnTime.ToString(@"mm");
@@ -90,6 +95,13 @@ namespace CapstoneProject.ViewModels
             
             GoToLampAnalysisViewCommand = new NavigateCommand(lampAnalysisViewNavigationService);
             SaveLampSettingsCommand = new SaveLampSettingsCommand(lamp, this);
+            
+            connectToLampService.AddListenerToConnectedLampChanged(OnConnectedLampChanged);
+        }
+
+        private void OnConnectedLampChanged(bool hasConnection, Lamp lamp)
+        {
+            
         }
     }
 }

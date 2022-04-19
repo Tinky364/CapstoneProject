@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CapstoneProject.Models;
+using CapstoneProject.Services;
 
 namespace CapstoneProject.ViewModels
 {
@@ -9,14 +10,16 @@ namespace CapstoneProject.ViewModels
         private readonly Lamp _lamp;
 
         private ObservableCollection<LampDailyDataViewModel> _lampDailyDataList;
-
         public IEnumerable<LampDailyDataViewModel> LampDailyDataList => _lampDailyDataList;
 
-        public LampDailyAnalysisViewModel(Lamp lamp)
+        public LampDailyAnalysisViewModel(ConnectToLampService connectToLampService)
         {
-            _lamp = lamp;
+            _lamp = connectToLampService.GetConnectedLamp();
+            
             _lampDailyDataList = new ObservableCollection<LampDailyDataViewModel>();
             UpdateLampDailyDataList();
+            
+            connectToLampService.AddListenerToConnectedLampChanged(OnConnectedLampChanged);
         }
 
         private void UpdateLampDailyDataList()
@@ -28,6 +31,11 @@ namespace CapstoneProject.ViewModels
                 LampDailyDataViewModel lampDailyDataViewModel = new(lampDailyData);
                 _lampDailyDataList.Add(lampDailyDataViewModel);
             }
+        }
+
+        private void OnConnectedLampChanged(bool hasConnection, Lamp lamp)
+        {
+            
         }
     }
 }

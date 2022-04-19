@@ -4,9 +4,9 @@ namespace CapstoneProject.Models
 {
     public class LampDailyData
     {
-        public DateTime DateTime { get; }
-        public float BatteryChargeMin { get; }
-        public float BatteryConsumptionMin { get; }
+        public DateTime DateTime { get; set; }
+        public float BatteryChargeMin { get; set; }
+        public float BatteryConsumptionMin { get; set; }
 
         public LampDailyData(
             DateTime dateTime, float batteryChargeMin, float batteryConsumptionMin
