@@ -9,17 +9,17 @@ namespace CapstoneProject.ViewModels
     public class LampConnectionViewModel : ViewModelBase
     {
         public ICommand ConnectLampCommand { get; }
-        private readonly NavigationService _lampConnectedViewNavigationService;
+        private readonly NavigationService _landingPageViewNavigationService;
         private readonly JsonDatabaseService _jsonDatabaseService;
 
         public LampConnectionViewModel(
             ConnectToLampService connectToLampService,
-            NavigationService lampConnectedViewNavigationService
+            NavigationService landingPageViewNavigationService
         )
         {
             ConnectLampCommand = new ConnectToLampCommand(connectToLampService);
 
-            _lampConnectedViewNavigationService = lampConnectedViewNavigationService;
+            _landingPageViewNavigationService = landingPageViewNavigationService;
             _jsonDatabaseService = new JsonDatabaseService();
             
             connectToLampService.AddListenerToConnectedLampChanged(OnConnectedLampChanged);
@@ -30,7 +30,7 @@ namespace CapstoneProject.ViewModels
             if (!hasConnection) return;
             
             await SynchronizeDailyData(lamp);
-            _lampConnectedViewNavigationService.Navigate();
+            _landingPageViewNavigationService.Navigate();
         }
 
         private async Task SynchronizeDailyData(Lamp lamp)
