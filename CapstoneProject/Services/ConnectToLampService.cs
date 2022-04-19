@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows;
+using CapstoneProject.Exceptions;
 using CapstoneProject.Models;
 using CapstoneProject.Stores;
 
@@ -41,12 +43,20 @@ namespace CapstoneProject.Services
         // TODO replace placeholder method logic
         private void PullAllNewDailyDataFromLamp(Lamp lamp)
         {
-            lamp.AddDailyData(
-                new LampDailyData(
-                    new DateTime(_random.Next(2020, 2023), _random.Next(1, 13), _random.Next(1, 31)),
-                    _random.Next(200, 500), _random.Next(200, 500)
-                )
-            );
+            try
+            {
+                lamp.AddDailyData(
+                    new LampDailyData(
+                        new DateTime(
+                            _random.Next(2020, 2023), _random.Next(1, 13), _random.Next(1, 31)
+                        ), _random.Next(200, 500), _random.Next(200, 500)
+                    )
+                );
+            }
+            catch (LampDailyDataConflictException e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         
         // TODO remove this method later

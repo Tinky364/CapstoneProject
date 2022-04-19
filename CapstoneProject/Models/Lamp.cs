@@ -42,7 +42,9 @@ namespace CapstoneProject.Models
             {
                 if (existingDailyData.Conflicts(dailyData))
                 {
-                    throw new LampDailyDataConflictException(existingDailyData, dailyData);
+                    throw new LampDailyDataConflictException(
+                        "Existing daily data conflict.", existingDailyData, dailyData
+                    );
                 }
             }
             
