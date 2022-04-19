@@ -12,15 +12,22 @@ namespace CapstoneProject.Stores
             set
             {
                 _lamp = value;
-                OnConnectedLampChanged(_lamp != null, _lamp);
+                if (_lamp == null)
+                    OnLampDisconnected();
             }
         }
 
-        public event Action<bool, Lamp> ConnectedLampChanged;
+        public event Action<Lamp> LampConnected;
+        public event Action LampDisconnected;
 
-        private void OnConnectedLampChanged(bool hasConnection, Lamp lamp)
+        public void OnLampConnected(Lamp lamp)
         {
-            ConnectedLampChanged?.Invoke(hasConnection, lamp);
+            LampConnected?.Invoke(lamp);
+        }
+
+        public void OnLampDisconnected()
+        {
+            LampDisconnected?.Invoke();
         }
     }
 }

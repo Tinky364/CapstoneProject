@@ -19,7 +19,7 @@ namespace CapstoneProject.ViewModels
             connectToLampService.AddListenerToConnectedLampChanged(OnConnectedLampChanged);
         }
 
-        private void OnConnectedLampChanged(bool hasConnection, Lamp lamp)
+        private void OnConnectedLampChanged(Lamp lamp)
         {
             
         }

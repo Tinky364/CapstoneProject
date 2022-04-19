@@ -33,7 +33,7 @@ namespace CapstoneProject.ViewModels
             }
         }
 
-        private void OnConnectedLampChanged(bool hasConnection, Lamp lamp)
+        private void OnConnectedLampChanged(Lamp lamp)
         {
             
         }

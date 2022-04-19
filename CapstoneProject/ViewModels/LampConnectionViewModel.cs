@@ -25,9 +25,9 @@ namespace CapstoneProject.ViewModels
             connectToLampService.AddListenerToConnectedLampChanged(OnConnectedLampChanged);
         }
 
-        private async void OnConnectedLampChanged(bool hasConnection, Lamp lamp)
+        private async void OnConnectedLampChanged(Lamp lamp)
         {
-            if (!hasConnection) return;
+            if (lamp == null) return;
             
             await SynchronizeDailyData(lamp);
             _landingPageViewNavigationService.Navigate();
@@ -35,7 +35,7 @@ namespace CapstoneProject.ViewModels
 
         private async Task SynchronizeDailyData(Lamp lamp)
         {
-            //await _jsonDatabaseService.PullAllDailyData(_lamp);
+            await _jsonDatabaseService.PullAllDailyData(lamp);
             await _jsonDatabaseService.UpdateDailyDataDatabase(lamp);
             lamp.SortAllDailyData();
         }

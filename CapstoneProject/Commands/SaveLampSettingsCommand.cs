@@ -35,15 +35,14 @@ namespace CapstoneProject.Commands
                 _lampSettingsViewModel.OffTimeMin = _lamp.OffTime.ToString(@"mm");
                 
                 MessageBox.Show(
-                    "Successfully saved.", "Success", MessageBoxButton.OK,
+                    "Successfully saved.", "Success", MessageBoxButton.OK, 
                     MessageBoxImage.Information
                 );
             }
             catch (Exception)
             {
                 MessageBox.Show(
-                    "Invalid user inputs.", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error
+                    "Invalid user inputs.", "Error", MessageBoxButton.OK, MessageBoxImage.Error
                 );
             }
         }
@@ -71,8 +70,9 @@ namespace CapstoneProject.Commands
                     result = false;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 result = false;
             }
             
