@@ -10,15 +10,18 @@ namespace CapstoneProject.Services
 {
     public class JsonDatabaseService
     {
+        private const string FolderPath = @"%LocalAppData%\LampDailyData";
+        
         public async Task PullAllDailyData(Lamp lamp)
         {
             try
             {
-                string fileName = $"{lamp.Id}.json";
-                string dir = @$"{AppDomain.CurrentDomain.BaseDirectory}DailyData\{fileName}";
-                if (!File.Exists(dir)) return;
+                string folderPath = Environment.ExpandEnvironmentVariables(FolderPath);
+                
+                string filePath = @$"{folderPath}\{lamp.Id}.json";
+                if (!File.Exists(filePath)) return;
 
-                using FileStream stream = File.OpenRead(dir);
+                await using FileStream stream = File.OpenRead(filePath);
                 var dailyDataList = await JsonSerializer.DeserializeAsync<IList<LampDailyData>>(stream);
                 if (dailyDataList != null)
                 {
@@ -39,10 +42,11 @@ namespace CapstoneProject.Services
         {
             try 
             {  
-                string fileName = $"{lamp.Id}.json";
-                string dir = @$"{AppDomain.CurrentDomain.BaseDirectory}DailyData\{fileName}";
-
-                using FileStream stream = File.Create(dir);
+                string folderPath = Environment.ExpandEnvironmentVariables(FolderPath);
+                if (!File.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+                
+                string filePath = @$"{folderPath}\{lamp.Id}.json";
+                await using FileStream stream = File.Create(filePath);
                 await JsonSerializer.SerializeAsync(stream, lamp.GetAllDailyData());
                 await stream.DisposeAsync();
             }
