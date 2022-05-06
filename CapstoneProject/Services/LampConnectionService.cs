@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO.Ports;
 using System.Threading.Tasks;
 using System.Windows;
 using CapstoneProject.Exceptions;
@@ -13,6 +13,7 @@ namespace CapstoneProject.Services
         private readonly ConnectedLampStore _connectedLampStore;
         private readonly JsonDatabaseService _jsonDatabaseService;
         private readonly Random _random;
+        public static string[] Ports;
 
         public LampConnectionService(
             ConnectedLampStore connectedLampStore, JsonDatabaseService jsonDatabaseService
@@ -21,17 +22,32 @@ namespace CapstoneProject.Services
             _connectedLampStore = connectedLampStore;
             _jsonDatabaseService = jsonDatabaseService;
             _random = new Random();
+            Ports = new[] {"COM1", "COM2", "COM3"}; // _ports = SerialPort.GetPortNames();
         }
 
-        // TODO replace placeholder method logic
-        public async Task ConnectLamp()
+        // TODO Replace placeholder method logic.
+        public async Task ConnectLamp(string selectedPort)
         {
+            /*try
+            {
+                _connectedLampStore.SerialPort = new SerialPort(
+                    selectedPort, 9600, Parity.None, 8, StopBits.One
+                );
+                _connectedLampStore.SerialPort.Open();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }*/
+            
+            // TODO Create the lamp instance via connection. 
             _connectedLampStore.Lamp = new Lamp(
                 121, "LampName", true, 
                 new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
                 new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
                 _random.Next(1,101), _random.NextDouble() >= 0.5
             );
+            
             await PullDailyDataOfLamp(_connectedLampStore.Lamp);
             await _jsonDatabaseService.PullDataOfLamp(_connectedLampStore.Lamp);
             await _jsonDatabaseService.PushDataOfLamp(_connectedLampStore.Lamp);
@@ -39,9 +55,19 @@ namespace CapstoneProject.Services
             _connectedLampStore.OnLampConnected(_connectedLampStore.Lamp);
         }
 
-        // TODO replace placeholder method logic
-        public async Task DisconnectLamp()
+        // TODO Replace placeholder method logic.
+        public void DisconnectLamp()
         {
+            /*try
+            {
+                _connectedLampStore.SerialPort.Close();
+                _connectedLampStore.SerialPort = null;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }*/
+            
             _connectedLampStore.Lamp = null;
             _connectedLampStore.OnLampDisconnected();
         }
@@ -83,6 +109,11 @@ namespace CapstoneProject.Services
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public static string[] GetPorts()
+        {
+            return Ports;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CapstoneProject.Services;
 
 namespace CapstoneProject.Commands
@@ -14,7 +15,7 @@ namespace CapstoneProject.Commands
         
         public override async Task ExecuteAsync(object parameter)
         {
-            _lampConnectionService.ConnectLamp();
+            await _lampConnectionService.ConnectLamp(Convert.ToString(parameter));
         }
     }
 }

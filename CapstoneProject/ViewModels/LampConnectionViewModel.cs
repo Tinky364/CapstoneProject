@@ -7,6 +7,17 @@ namespace CapstoneProject.ViewModels
     public class LampConnectionViewModel : ViewModelBase
     {
         public ICommand ConnectLampCommand { get; }
+
+        private string _selectedPort = LampConnectionService.Ports[0];
+        public string SelectedPort 
+        {
+            get => _selectedPort;
+            set
+            {
+                _selectedPort = value;
+                OnPropertyChanged(nameof(SelectedPort));
+            }
+        }
         
         public LampConnectionViewModel(LampConnectionService lampConnectionService)
         {

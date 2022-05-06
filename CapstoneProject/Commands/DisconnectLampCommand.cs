@@ -1,9 +1,8 @@
-﻿using System.Threading.Tasks;
-using CapstoneProject.Services;
+﻿using CapstoneProject.Services;
 
 namespace CapstoneProject.Commands
 {
-    public class DisconnectLampCommand : AsyncCommandBase
+    public class DisconnectLampCommand : CommandBase
     {
         private readonly LampConnectionService _lampConnectionService;
 
@@ -12,7 +11,7 @@ namespace CapstoneProject.Commands
             _lampConnectionService = lampConnectionService;
         }
 
-        public override async Task ExecuteAsync(object parameter)
+        public override void Execute(object parameter)
         {
             _lampConnectionService.DisconnectLamp();
         }

@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:CapstoneProject.Views"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:services="clr-namespace:CapstoneProject.Services"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
@@ -27,7 +27,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!--  Name  -->
+                <!--  Ports  -->
                 <Border Grid.Row="0" Style="{StaticResource FloralPropertyBorder}" />
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
@@ -36,17 +36,16 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.Resources>
-                        <ObjectDataProvider x:Key="odpPorts" ObjectType="{x:Type sys:Enum}">
-                            
-                            <ObjectDataProvider.MethodParameters>
-                                <x:Type TypeName=""></x:Type>
-                            </ObjectDataProvider.MethodParameters>
+                        <ObjectDataProvider 
+                            x:Key="OdpPorts" 
+                            ObjectType="{x:Type services:LampConnectionService}"
+                            MethodName="GetPorts">
                         </ObjectDataProvider>
                     </Grid.Resources>
                     
                     <Image
                         Grid.Column="0"
-                        MaxHeight="60"
+                        MaxHeight="40"
                         Margin="7"
                         Source="pack://application:,,,/Icons/UsbPort.png"
                         Stretch="Uniform" />
@@ -62,7 +61,10 @@
                     </StackPanel>
                     <ComboBox
                         Grid.Column="2"
-                        VerticalAlignment="Center">
+                        FontSize="24"
+                        VerticalAlignment="Center"
+                        ItemsSource="{Binding Source={StaticResource OdpPorts}}"
+                        SelectedItem="{Binding SelectedPort, UpdateSourceTrigger=PropertyChanged}">
                     </ComboBox>
                 </Grid>
             </Grid>
@@ -71,14 +73,13 @@
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 
                 <Button
                     Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="10,0,10,0"
+                    Margin="10"
                     Command="{Binding ConnectLampCommand}"
+                    CommandParameter="{Binding SelectedPort}"
                     Style="{StaticResource Button}">
                     <Button.Resources>
                         <Style TargetType="Border">

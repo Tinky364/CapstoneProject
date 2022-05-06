@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Ports;
 using CapstoneProject.Models;
 
 namespace CapstoneProject.Stores
@@ -12,10 +13,11 @@ namespace CapstoneProject.Stores
             set
             {
                 _lamp = value;
-                if (_lamp == null)
-                    OnLampDisconnected();
+                if (_lamp == null) OnLampDisconnected();
             }
         }
+
+        public SerialPort SerialPort { get; set; }
 
         public event Action<Lamp> LampConnected;
         public event Action LampDisconnected;
