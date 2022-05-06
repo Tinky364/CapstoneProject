@@ -8,15 +8,13 @@ namespace CapstoneProject
     {
         private readonly NavigationStore _navigationStore;
         private readonly LampConnectionService _lampConnectionService;
-        private readonly JsonDatabaseService _jsonDatabaseService;
 
-        public ViewModelFactory(NavigationStore navigationStore)
+        public ViewModelFactory(
+            NavigationStore navigationStore, LampConnectionService lampConnectionService
+        )
         {
             _navigationStore = navigationStore;
-            _jsonDatabaseService = new JsonDatabaseService();
-            _lampConnectionService = new LampConnectionService(
-                new ConnectedLampStore(), _jsonDatabaseService
-            );
+            _lampConnectionService = lampConnectionService;
         }
         
         public LandingPageViewModel Create_LandingPageViewModel()
