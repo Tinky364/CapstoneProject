@@ -35,9 +35,14 @@ namespace CapstoneProject.Services
             return _connectedLampStore.Lamp;
         }
         
-        public void AddListenerToConnectedLampChanged(Action<Lamp> onAction)
+        public void AddListenerToLampConnected(Action<Lamp> onAction)
         {
             _connectedLampStore.LampConnected += onAction;
+        }
+
+        public void AddListenerToLampDisconnected(Action onAction)
+        {
+            _connectedLampStore.LampDisconnected += onAction;
         }
 
         // TODO replace placeholder method logic

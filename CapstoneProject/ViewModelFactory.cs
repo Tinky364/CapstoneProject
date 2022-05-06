@@ -16,21 +16,18 @@ namespace CapstoneProject
             _navigationStore = navigationStore;
             _connectToLampService = connectToLampService;
         }
-
-        public LampConnectionViewModel Create_LampConnectionViewModel()
-        {
-            return new LampConnectionViewModel(
-                _connectToLampService,
-                new NavigationService(_navigationStore, Create_LandingPageViewModel)
-            );
-        }
         
         public LandingPageViewModel Create_LandingPageViewModel()
         {
             return new LandingPageViewModel(
-                _connectToLampService, Create_LampOverviewViewModel(), 
-                Create_LampDailyAnalysisViewModel() 
+                _connectToLampService, Create_LampConnectionViewModel, 
+                Create_LampOverviewViewModel, Create_LampDailyAnalysisViewModel
             );
+        }
+        
+        public LampConnectionViewModel Create_LampConnectionViewModel()
+        {
+            return new LampConnectionViewModel(_connectToLampService);
         }
         
         public LampOverviewViewModel Create_LampOverviewViewModel()

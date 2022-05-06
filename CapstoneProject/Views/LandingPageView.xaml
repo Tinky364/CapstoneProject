@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:CapstoneProject.Views"
+    xmlns:vms="clr-namespace:CapstoneProject.ViewModels"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -65,15 +66,25 @@
         </Border>
 
         <!--  Overview Content  -->
-        <views:LampOverviewView
+        <Grid
             Grid.Row="1"
-            Grid.Column="0"
-            DataContext="{Binding LampOverviewViewModel}" />
-
+            Grid.Column="0">
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type vms:LampConnectionViewModel}">
+                    <views:LampConnectionView />
+                </DataTemplate>
+                
+                <DataTemplate DataType="{x:Type vms:LampOverviewViewModel}">
+                    <views:LampOverviewView />
+                </DataTemplate>
+            </Grid.Resources>
+            
+            <ContentControl Content="{Binding ContentViewModel}" />
+        </Grid>
+        
         <!--  Daily Analysis Content  -->
         <views:LampDailyAnalysisView
             Grid.Row="1"
-            Grid.Column="2"
-            DataContext="{Binding LampDailyAnalysisViewModel}" />
+            Grid.Column="2" />
     </Grid>
 </UserControl>

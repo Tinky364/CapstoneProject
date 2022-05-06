@@ -6,39 +6,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:CapstoneProject.Views"
     d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignWidth="300"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <!--  Headers definition  -->
-            <RowDefinition Height="Auto" />
-            <!--  Contents definition  -->
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Border
+        Margin="5,5"
+        Style="{StaticResource PanelBorder}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <!--  Contents definition  -->
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <!--  Headers  -->
-        <!--  Connection Header  -->
-        <Border
-            Grid.Row="0"
-            Margin="5,5"
-            Style="{StaticResource PanelBorder}">
-
-            <TextBlock
-                Margin="10,0"
-                Style="{StaticResource Header}"
-                Text="Lamp Connection" />
-        </Border>
-
-        <!--  Contents  -->
-        <!--  Connection Content  -->
-        <Border
-            Grid.Row="1"
-            Margin="5,5"
-            Style="{StaticResource PanelBorder}">
-
+            <!--  Contents  -->
+            <!--  Connection Content  -->
             <Button
+                Grid.Row="0"
                 Grid.Column="0"
-                MinWidth="75"
                 Margin="3,0,0,3"
                 Command="{Binding ConnectLampCommand}"
                 Style="{StaticResource Button}">
@@ -49,17 +32,17 @@
                 </Button.Resources>
                 <StackPanel Orientation="Horizontal">
                     <Image
-                        MaxHeight="200"
+                        MaxHeight="75"
                         Margin="5"
                         Source="pack://application:,,,/Icons/ConnectionStatus.png"
                         Stretch="Uniform" />
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        FontSize="100"
+                        FontSize="36"
                         Text="Connect" />
                 </StackPanel>
             </Button>
-        </Border>
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>

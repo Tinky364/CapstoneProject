@@ -24,8 +24,11 @@ namespace CapstoneProject
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigationStore.CurrentViewModel = _viewModelFactory.Create_LampConnectionViewModel();
-            MainWindow = new MainWindow {DataContext = new MainViewModel(_navigationStore)};
+            _navigationStore.CurrentViewModel = _viewModelFactory.Create_LandingPageViewModel();
+            MainWindow = new MainWindow
+            {
+                DataContext = new MainViewModel(_navigationStore)
+            };
             MainWindow.Show();
             
             base.OnStartup(e);

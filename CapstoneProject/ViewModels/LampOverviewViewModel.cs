@@ -24,13 +24,6 @@ namespace CapstoneProject.ViewModels
             Automated = LampViewModel.Automated ? "On" : "Off";
             
             GoToLampSettingsViewCommand = new NavigateCommand(lampSettingsViewNavigationService);
-            
-            connectToLampService.AddListenerToConnectedLampChanged(OnConnectedLampChanged);
-        }
-
-        private void OnConnectedLampChanged(Lamp lamp)
-        {
-            
         }
     }
 }

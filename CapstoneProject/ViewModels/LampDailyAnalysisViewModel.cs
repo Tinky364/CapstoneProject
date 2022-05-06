@@ -19,7 +19,7 @@ namespace CapstoneProject.ViewModels
             _lampDailyDataList = new ObservableCollection<LampDailyDataViewModel>();
             UpdateLampDailyDataList();
             
-            connectToLampService.AddListenerToConnectedLampChanged(OnConnectedLampChanged);
+            connectToLampService.AddListenerToLampConnected(OnLampConnected);
         }
 
         private void UpdateLampDailyDataList()
@@ -33,7 +33,7 @@ namespace CapstoneProject.ViewModels
             }
         }
 
-        private void OnConnectedLampChanged(Lamp lamp)
+        private void OnLampConnected(Lamp lamp)
         {
             
         }
