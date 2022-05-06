@@ -12,7 +12,7 @@ namespace CapstoneProject.Services
     {
         private const string FolderPath = @"%LocalAppData%\LampDailyData";
         
-        public async Task PullAllDailyData(Lamp lamp)
+        public async Task PullDataOfLamp(Lamp lamp)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace CapstoneProject.Services
             }
         }
         
-        public async Task UpdateDailyDataDatabase(Lamp lamp)
+        public async Task PushDataOfLamp(Lamp lamp)
         {
             try 
             {  

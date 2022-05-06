@@ -12,14 +12,14 @@ namespace CapstoneProject.ViewModels
         private ObservableCollection<LampDailyDataViewModel> _lampDailyDataList;
         public IEnumerable<LampDailyDataViewModel> LampDailyDataList => _lampDailyDataList;
 
-        public LampDailyAnalysisViewModel(ConnectToLampService connectToLampService)
+        public LampDailyAnalysisViewModel(LampConnectionService lampConnectionService)
         {
-            _lamp = connectToLampService.GetConnectedLamp();
+            _lamp = lampConnectionService.GetConnectedLamp();
             
             _lampDailyDataList = new ObservableCollection<LampDailyDataViewModel>();
             UpdateLampDailyDataList();
             
-            connectToLampService.AddListenerToLampConnected(OnLampConnected);
+            lampConnectionService.AddListenerToLampConnected(OnLampConnected);
         }
 
         private void UpdateLampDailyDataList()

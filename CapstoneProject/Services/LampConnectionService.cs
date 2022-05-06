@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using CapstoneProject.Exceptions;
 using CapstoneProject.Models;
@@ -6,33 +7,52 @@ using CapstoneProject.Stores;
 
 namespace CapstoneProject.Services
 {
-    public class ConnectToLampService
+    public class LampConnectionService
     {
         private readonly ConnectedLampStore _connectedLampStore;
+        private readonly JsonDatabaseService _jsonDatabaseService;
         private readonly Random _random;
-        
-        public ConnectToLampService(ConnectedLampStore connectedLampStore)
+
+        public LampConnectionService(
+            ConnectedLampStore connectedLampStore, JsonDatabaseService jsonDatabaseService
+        )
         {
             _connectedLampStore = connectedLampStore;
+            _jsonDatabaseService = jsonDatabaseService;
             _random = new Random();
         }
 
         // TODO replace placeholder method logic
-        public void ConnectToLamp()
+        public async Task ConnectLamp()
         {
             _connectedLampStore.Lamp = new Lamp(
-                124, GenerateName(_random.Next(3, 14)), true, 
+                121, "LampName", true, 
                 new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
                 new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
                 _random.Next(1,101), _random.NextDouble() >= 0.5
             );
-            PullAllNewDailyDataFromLamp(_connectedLampStore.Lamp);
+            await PullDailyDataOfLamp(_connectedLampStore.Lamp);
+            await _jsonDatabaseService.PullDataOfLamp(_connectedLampStore.Lamp);
+            await _jsonDatabaseService.PushDataOfLamp(_connectedLampStore.Lamp);
+            _connectedLampStore.Lamp.SortAllDailyData();
             _connectedLampStore.OnLampConnected(_connectedLampStore.Lamp);
+        }
+
+        // TODO replace placeholder method logic
+        public async Task DisconnectLamp()
+        {
+            _connectedLampStore.Lamp = null;
+            _connectedLampStore.OnLampDisconnected();
         }
         
         public Lamp GetConnectedLamp()
         {
             return _connectedLampStore.Lamp;
+        }
+
+        public bool IsLampConnected()
+        {
+            return _connectedLampStore.Lamp != null && _connectedLampStore.Lamp.ConnectionStatus;
         }
         
         public void AddListenerToLampConnected(Action<Lamp> onAction)
@@ -44,9 +64,9 @@ namespace CapstoneProject.Services
         {
             _connectedLampStore.LampDisconnected += onAction;
         }
-
+        
         // TODO replace placeholder method logic
-        private void PullAllNewDailyDataFromLamp(Lamp lamp)
+        private async Task PullDailyDataOfLamp(Lamp lamp)
         {
             try
             {
@@ -62,27 +82,6 @@ namespace CapstoneProject.Services
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-        
-        // TODO remove this method later
-        private static string GenerateName(int len)
-        { 
-            Random r = new Random();
-            string[] consonants = { "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "l", "n", "p", "q", "r", "s", "sh", "zh", "t", "v", "w", "x" };
-            string[] vowels = { "a", "e", "i", "o", "u", "ae", "y" };
-            string Name = "";
-            Name += consonants[r.Next(consonants.Length)].ToUpper();
-            Name += vowels[r.Next(vowels.Length)];
-            int b = 2; //b tells how many times a new letter has been added. It's 2 right now because the first two letters are already in the name.
-            while (b < len)
-            {
-                Name += consonants[r.Next(consonants.Length)];
-                b++;
-                Name += vowels[r.Next(vowels.Length)];
-                b++;
-            }
-
-            return Name;
         }
     }
 }

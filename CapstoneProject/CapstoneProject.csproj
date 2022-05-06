@@ -52,6 +52,10 @@
       <Resource Include="Icons\Settings.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <None Remove="Icons\Disconnect.png" />
+      <Resource Include="Icons\Disconnect.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 
 </Project>

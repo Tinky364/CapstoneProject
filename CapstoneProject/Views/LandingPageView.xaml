@@ -21,7 +21,7 @@
             <ColumnDefinition Width="150*" MaxWidth="300" />
             <!--  Grid Splitter definition  -->
             <ColumnDefinition Width="5" />
-            <!--  Daily Analysis Header  -->
+            <!--  Analysis Header  -->
             <ColumnDefinition Width="300*" />
         </Grid.ColumnDefinitions>
 
@@ -49,10 +49,10 @@
             <TextBlock
                 Margin="10,0"
                 Style="{StaticResource Header}"
-                Text="Lamp Overview" />
+                Text="{Binding OverviewHeader}" />
         </Border>
 
-        <!--  Daily Analysis Header  -->
+        <!--  Analysis Header  -->
         <Border
             Grid.Row="0"
             Grid.Column="2"
@@ -79,12 +79,20 @@
                 </DataTemplate>
             </Grid.Resources>
             
-            <ContentControl Content="{Binding ContentViewModel}" />
+            <ContentControl Content="{Binding OverviewContent}" />
         </Grid>
         
-        <!--  Daily Analysis Content  -->
-        <views:LampDailyAnalysisView
+        <!--  Analysis Content  -->
+        <Grid
             Grid.Row="1"
-            Grid.Column="2" />
+            Grid.Column="2">
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type vms:LampDailyAnalysisViewModel}">
+                    <views:LampDailyAnalysisView />
+                </DataTemplate>
+            </Grid.Resources>
+            
+            <ContentControl Content="{Binding AnalysisContent}" />
+        </Grid>
     </Grid>
 </UserControl>

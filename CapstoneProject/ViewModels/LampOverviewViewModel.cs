@@ -13,17 +13,19 @@ namespace CapstoneProject.ViewModels
         public string Automated { get; }
         
         public ICommand GoToLampSettingsViewCommand { get; }
+        public ICommand DisconnectLampCommand { get; }
         
         public LampOverviewViewModel(
-            ConnectToLampService connectToLampService, 
+            LampConnectionService lampConnectionService, 
             NavigationService lampSettingsViewNavigationService)
         {
-            LampViewModel = new LampViewModel(connectToLampService.GetConnectedLamp());
+            LampViewModel = new LampViewModel(lampConnectionService.GetConnectedLamp());
             
             ConnectionStatus = LampViewModel.ConnectionStatus ? "Connected" : "Disconnected";
             Automated = LampViewModel.Automated ? "On" : "Off";
             
             GoToLampSettingsViewCommand = new NavigateCommand(lampSettingsViewNavigationService);
+            DisconnectLampCommand = new DisconnectLampCommand(lampConnectionService);
         }
     }
 }

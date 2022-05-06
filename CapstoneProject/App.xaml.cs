@@ -16,10 +16,7 @@ namespace CapstoneProject
         public App()
         {
             _navigationStore = new NavigationStore();
-            
-            _viewModelFactory = new ViewModelFactory(
-                _navigationStore, new ConnectToLampService(new ConnectedLampStore())
-            );
+            _viewModelFactory = new ViewModelFactory(_navigationStore);
         }
 
         protected override void OnStartup(StartupEventArgs e)

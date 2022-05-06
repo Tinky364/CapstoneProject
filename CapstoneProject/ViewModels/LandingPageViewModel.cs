@@ -6,14 +6,36 @@ namespace CapstoneProject.ViewModels
 {
     public class LandingPageViewModel : ViewModelBase
     {
-        private ViewModelBase _contentViewModel;
-        public ViewModelBase ContentViewModel
+        private ViewModelBase _overviewContent;
+        public ViewModelBase OverviewContent
         {
-            get => _contentViewModel;
+            get => _overviewContent;
             set
             {
-                _contentViewModel = value;
-                OnPropertyChanged(nameof(ContentViewModel));
+                _overviewContent = value;
+                OnPropertyChanged(nameof(OverviewContent));
+            }
+        }
+        
+        private ViewModelBase _analysisContent;
+        public ViewModelBase AnalysisContent
+        {
+            get => _analysisContent;
+            set
+            {
+                _analysisContent = value;
+                OnPropertyChanged(nameof(AnalysisContent));
+            }
+        }
+
+        private string _overviewHeader;
+        public string OverviewHeader
+        {
+            get => _overviewHeader;
+            set
+            {
+                _overviewHeader = value;
+                OnPropertyChanged(nameof(OverviewHeader));
             }
         }
 
@@ -21,35 +43,36 @@ namespace CapstoneProject.ViewModels
         private readonly Func<LampOverviewViewModel> _createLampOverviewViewModel;
         private readonly Func<LampDailyAnalysisViewModel> _createDailyAnalysisViewModel;
         
-        public LampDailyAnalysisViewModel LampDailyAnalysisViewModel { get; set; }
-
         public LandingPageViewModel(
-            ConnectToLampService connectToLampService, 
+            LampConnectionService lampConnectionService, 
             Func<ViewModelBase> createLampConnectionViewModel,
             Func<LampOverviewViewModel> createLampOverviewViewModel,
             Func<LampDailyAnalysisViewModel> createLampDailyAnalysisViewModel
         )
         {
-            connectToLampService.AddListenerToLampConnected(OnLampConnected);
-            connectToLampService.AddListenerToLampDisconnected(OnLampDisconnected);
+            lampConnectionService.AddListenerToLampConnected(OnLampConnected);
+            lampConnectionService.AddListenerToLampDisconnected(OnLampDisconnected);
 
             _createLampConnectionViewModel = createLampConnectionViewModel;
             _createLampOverviewViewModel = createLampOverviewViewModel;
             _createDailyAnalysisViewModel = createLampDailyAnalysisViewModel;
 
-            ContentViewModel = _createLampConnectionViewModel();
+            if (lampConnectionService.IsLampConnected()) OnLampConnected(null);
+            else OnLampDisconnected();
         }
 
         private void OnLampConnected(Lamp lamp)
         {
-            LampDailyAnalysisViewModel = _createDailyAnalysisViewModel();
-            
-            ContentViewModel = _createLampOverviewViewModel();
+            OverviewContent = _createLampOverviewViewModel();
+            AnalysisContent = _createDailyAnalysisViewModel();
+            OverviewHeader = "Lamp Overview";
         }
 
         private void OnLampDisconnected()
         {
-            ContentViewModel = _createLampConnectionViewModel();
+            OverviewContent = _createLampConnectionViewModel();
+            AnalysisContent = null;
+            OverviewHeader = "Lamp Connection";
         }
     }
 }
