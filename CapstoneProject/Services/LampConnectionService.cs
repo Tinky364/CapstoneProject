@@ -48,6 +48,7 @@ namespace CapstoneProject.Services
                 _random.Next(1,101), _random.NextDouble() >= 0.5
             );
             
+            await Task.Delay(2000); // TODO Remove this line.
             await PullDailyDataOfLamp(_connectedLampStore.Lamp);
             await _jsonDatabaseService.PullDataOfLamp(_connectedLampStore.Lamp);
             await _jsonDatabaseService.PushDataOfLamp(_connectedLampStore.Lamp);
