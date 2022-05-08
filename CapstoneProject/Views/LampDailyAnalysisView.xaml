@@ -8,9 +8,9 @@
     d:DesignHeight="300"
     d:DesignWidth="500"
     mc:Ignorable="d">
-    <Border Margin="5,5" Style="{StaticResource PanelBorder}">
+    <Border Margin="5" Style="{StaticResource PanelBorder}">
         <ListView
-            Margin="5,5"
+            Margin="5"
             HorizontalContentAlignment="Stretch"
             Background="LightGray"
             ItemsSource="{Binding LampDailyDataList}">
@@ -18,7 +18,7 @@
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
                     <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="Background" Value="FloralWhite" />
+                    <Setter Property="Background" Value="White" />
                 </Style>
             </ListView.ItemContainerStyle>
 

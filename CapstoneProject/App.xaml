@@ -16,7 +16,7 @@
 
         <Style x:Key="Header" TargetType="TextBlock">
             <Setter Property="FontSize" Value="26" />
-            <Setter Property="Foreground" Value="Crimson" />
+            <Setter Property="Foreground" Value="OrangeRed" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
 
