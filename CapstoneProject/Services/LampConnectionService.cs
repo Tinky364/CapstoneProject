@@ -26,7 +26,7 @@ namespace CapstoneProject.Services
         }
 
         // TODO Replace placeholder method logic.
-        public async Task ConnectLamp(string selectedPort)
+        public async Task ConnectLamp(string selectedPort, int dummyId)
         {
             /*try
             {
@@ -39,20 +39,35 @@ namespace CapstoneProject.Services
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }*/
-            
+
             // TODO Create the lamp instance via connection. 
-            _connectedLampStore.Lamp = new Lamp(
-                121, "LampName", true, 
-                new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
-                new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
-                _random.Next(1,101), _random.NextDouble() >= 0.5
-            );
+            int lampId = dummyId;
+            if (_jsonDatabaseService.AllDatabaseLamps.ContainsKey(lampId))
+            {
+                _connectedLampStore.Lamp = _jsonDatabaseService.AllDatabaseLamps[lampId];
+                _connectedLampStore.Lamp.InitializeConnection(
+                    "LampName", new TimeSpan(_random.Next(0, 24), _random.Next(0, 59), 0),
+                    new TimeSpan(_random.Next(0, 24), _random.Next(0, 59), 0), _random.Next(1, 101),
+                    _random.NextDouble() >= 0.5
+                );
+            }
+            else
+            {
+                _connectedLampStore.Lamp = new Lamp(
+                    lampId, "LampName", true, 
+                    new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
+                    new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
+                    _random.Next(1,101), _random.NextDouble() >= 0.5
+                );
+                _jsonDatabaseService.AllDatabaseLamps.Add(
+                    _connectedLampStore.Lamp.Id, _connectedLampStore.Lamp
+                );
+            }
             
-            await Task.Delay(2000); // TODO Remove this line.
+            await Task.Delay(1000); // TODO Remove this line.
             await PullDailyDataOfLamp(_connectedLampStore.Lamp);
-            await _jsonDatabaseService.PullDataOfLamp(_connectedLampStore.Lamp);
-            await _jsonDatabaseService.PushDataOfLamp(_connectedLampStore.Lamp);
             _connectedLampStore.Lamp.SortAllDailyData();
+            await _jsonDatabaseService.PushDataOfLamp(_connectedLampStore.Lamp);
             _connectedLampStore.OnLampConnected(_connectedLampStore.Lamp);
         }
 

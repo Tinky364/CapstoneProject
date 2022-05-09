@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +13,51 @@ namespace CapstoneProject.Services
     public class JsonDatabaseService
     {
         private const string FolderPath = @"%LocalAppData%\LampDailyData";
+
+        public readonly Dictionary<int, Lamp> AllDatabaseLamps;
+
+        public JsonDatabaseService()
+        {
+            AllDatabaseLamps = new Dictionary<int, Lamp>();
+            PullAllDailyData();
+        }
+
+        private void PullAllDailyData()
+        {
+            try
+            {
+                string folderPath = Environment.ExpandEnvironmentVariables(FolderPath);
+                
+                foreach(string fileName in  Directory.GetFiles(folderPath).Select(Path.GetFileName))
+                {
+                    string filePath = @$"{folderPath}\{fileName}";
+                    if (!File.Exists(filePath)) throw new FileNotFoundException();
+
+                    int.TryParse(
+                        fileName.Substring(0, fileName.IndexOf(".", StringComparison.Ordinal)),
+                        out int id
+                    );
+                    AllDatabaseLamps.Add(id, new Lamp(id));
+
+                    using FileStream stream = File.OpenRead(filePath);
+                    var dailyDataList = JsonSerializer.Deserialize<IList<LampDailyData>>(stream);
+                    if (dailyDataList != null)
+                    {
+                        foreach (var dailyData in dailyDataList)
+                        {
+                            AllDatabaseLamps[id].AddDailyData(dailyData);
+                        }
+                    }
+                    stream.Dispose();
+                    
+                    AllDatabaseLamps[id].SortAllDailyData();
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+            }
+        }
         
         public async Task PullDataOfLamp(Lamp lamp)
         {

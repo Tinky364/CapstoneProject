@@ -18,6 +18,18 @@ namespace CapstoneProject.ViewModels
                 OnPropertyChanged(nameof(SelectedPort));
             }
         }
+
+        // TODO Remove
+        private int _dummyId = 123;
+        public int DummyId
+        {
+            get => _dummyId;
+            set
+            {
+                _dummyId = value;
+                OnPropertyChanged(nameof(DummyId));
+            }
+        }
         
         public LampConnectionViewModel(LampConnectionService lampConnectionService)
         {
