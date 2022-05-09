@@ -1,0 +1,113 @@
+﻿<UserControl
+    x:Class="CapstoneProject.Views.DailyAnalysisListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="500"
+    mc:Ignorable="d">
+    <Border Margin="5" Style="{StaticResource PanelBorder}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <!--  Name Definition  -->
+                <RowDefinition Height="Auto" />
+                <!--  Daily Analysis List Definition  -->
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <!--  Name  -->
+            <Border Grid.Row="0" Style="{StaticResource FloralPropertyBorder}" />
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Grid.Column="0"
+                    MaxHeight="20"
+                    Margin="6 4 0 4"
+                    Source="pack://application:,,,/Icons/Name.png"
+                    Stretch="Uniform" />
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="3"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource Property}"
+                    Text="Lamp Name:" />
+                <TextBlock
+                    Grid.Column="2"
+                    Margin="1"
+                    VerticalAlignment="Center"
+                    Text="{Binding LampName}" />
+            </Grid>
+            
+            <!--  Daily Analysis List  -->
+            <ListView
+                Grid.Row="1"
+                Margin="5"
+                HorizontalContentAlignment="Stretch"
+                Background="LightGray"
+                ItemsSource="{Binding LampDailyDataList}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="Foreground" Value="Black" />
+                        <Setter Property="Background" Value="White" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="140">
+                            <GridViewColumnHeader 
+                                Background="AntiqueWhite" 
+                                Foreground="OrangeRed" 
+                                FontWeight="Bold">
+                                Date
+                            </GridViewColumnHeader>
+                            
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding DateTime}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="155">
+                            <GridViewColumnHeader 
+                                Background="FloralWhite"
+                                Foreground="OrangeRed" 
+                                FontWeight="Bold">
+                                Charge Time
+                            </GridViewColumnHeader>
+                            
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding BatteryChargeMin}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="155">
+                            <GridViewColumnHeader 
+                                Background="AntiqueWhite"
+                                Foreground="OrangeRed" 
+                                FontWeight="Bold">
+                                Consumption Time
+                            </GridViewColumnHeader>
+                            
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding BatteryConsumptionMin}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Border>
+</UserControl>

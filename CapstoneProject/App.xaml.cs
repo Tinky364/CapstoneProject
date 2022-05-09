@@ -12,7 +12,7 @@ public partial class App : Application
 {
     private readonly NavigationStore _navigationStore;
     private readonly ConnectedLampStore _connectedLampStore;
-    private readonly JsonDatabaseService _jsonDatabaseService;
+    private readonly DatabaseService _databaseService;
     private readonly LampConnectionService _lampConnectionService;
     private readonly ViewFactoryService _viewFactoryService;
 
@@ -20,17 +20,17 @@ public partial class App : Application
     {
         _navigationStore = new NavigationStore();
         _connectedLampStore = new ConnectedLampStore();
-        _jsonDatabaseService = new JsonDatabaseService();
-        _lampConnectionService = new LampConnectionService(
-            _connectedLampStore, _jsonDatabaseService
+        _databaseService = new DatabaseService();
+        _lampConnectionService = new LampConnectionService(_connectedLampStore, _databaseService);
+        _viewFactoryService = new ViewFactoryService(
+            _navigationStore, _lampConnectionService, _databaseService
         );
-        _viewFactoryService = new ViewFactoryService(_navigationStore, _lampConnectionService);
     }
 
     protected override void OnStartup(StartupEventArgs e)
     {
         _navigationStore.CurrentViewModel = _viewFactoryService.LandingPage();
-        MainWindow = new MainWindow { DataContext = new MainViewModel(_navigationStore) };
+        MainWindow = new MainWindowView {DataContext = new MainWindowViewModel(_navigationStore)};
         MainWindow.Show();
             
         base.OnStartup(e);

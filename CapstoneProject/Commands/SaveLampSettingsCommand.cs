@@ -1,33 +1,46 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using CapstoneProject.Models;
+using CapstoneProject.Services;
 using CapstoneProject.ViewModels;
 
 namespace CapstoneProject.Commands;
 
-public class SaveLampSettingsCommand : CommandBase
+public class SaveLampSettingsCommand : AsyncCommandBase
 {
     private readonly Lamp _lamp;
     private readonly LampSettingsViewModel _lampSettingsViewModel;
+    private readonly DatabaseService _databaseService;
 
-    public SaveLampSettingsCommand(Lamp lamp, LampSettingsViewModel lampSettingsViewModel)
+    public SaveLampSettingsCommand(
+        Lamp lamp, LampSettingsViewModel lampSettingsViewModel, DatabaseService databaseService
+    )
     {
         _lamp = lamp;
         _lampSettingsViewModel = lampSettingsViewModel;
+        _databaseService = databaseService;
 
         _lampSettingsViewModel.PropertyChanged += OnViewModelPropertyChanged;
     }
         
-    public override void Execute(object parameter)
+    public override async Task ExecuteAsync(object parameter)
     {
         try
         {
-            _lamp.Name = _lampSettingsViewModel.Name.Trim().Replace(" ", "_");
+            string previousName = _lamp.Name;
+            string newName = _lampSettingsViewModel.Name.Trim();
+            if (previousName != newName)
+            {
+                _lamp.Name = newName;
+                await _databaseService.WriteDatabaseLampData(_lamp);
+                _databaseService.DeleteDatabaseLampOnLampNameChange(_lamp.Id, previousName);
+            }
             _lamp.OnTime = TimeSpan.Parse(_lampSettingsViewModel.OnTime);
             _lamp.OffTime = TimeSpan.Parse(_lampSettingsViewModel.OffTime);
             _lamp.Automated = _lampSettingsViewModel.Automated;
-                
+            
             _lampSettingsViewModel.Name = _lamp.Name;
             _lampSettingsViewModel.OnTimeHour = _lamp.OnTime.ToString(@"hh");
             _lampSettingsViewModel.OnTimeMin = _lamp.OnTime.ToString(@"mm");

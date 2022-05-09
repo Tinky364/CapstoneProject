@@ -43,11 +43,11 @@
         <Border
             Grid.Row="0"
             Grid.Column="0"
-            Margin="5,5"
+            Margin="5 5"
             Style="{StaticResource PanelBorder}">
 
             <TextBlock
-                Margin="10,0"
+                Margin="10 5"
                 Style="{StaticResource Header}"
                 Text="{Binding OverviewHeader}" />
         </Border>
@@ -59,10 +59,51 @@
             Margin="5,5"
             Style="{StaticResource PanelBorder}">
 
-            <TextBlock
-                Margin="10,0"
-                Style="{StaticResource Header}"
-                Text="Daily Analysis" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="10 5"
+                    Style="{StaticResource Header}"
+                    Text="Daily Analysis" />
+                
+                <Border 
+                    Margin="2"
+                    Grid.Column="2" 
+                    Style="{StaticResource FloralPropertyBorder}" />
+                <StackPanel
+                    Orientation="Horizontal"
+                    Grid.Column="2">
+                    <Image
+                        MaxHeight="30"
+                        Margin="5 5 0 5"
+                        Source="pack://application:,,,/Icons/Id.png"
+                        Stretch="Uniform" />
+                    <TextBlock
+                        Margin="5,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="OrangeRed"
+                        Text="Lamp ID:" />
+                    <ComboBox
+                        Margin="5 5 10 5"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        ItemsSource="{Binding DatabaseLampIds}"
+                        SelectedItem="{Binding SelectedDatabaseLampId, UpdateSourceTrigger=PropertyChanged}"
+                        IsEditable="True"
+                        IsReadOnly="True"
+                        Focusable="False"
+                        Text="none">
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
         </Border>
 
         <!--  Overview Content  -->
@@ -87,8 +128,12 @@
             Grid.Row="1"
             Grid.Column="2">
             <Grid.Resources>
-                <DataTemplate DataType="{x:Type vms:LampDailyAnalysisViewModel}">
-                    <views:LampDailyAnalysisView />
+                <DataTemplate DataType="{x:Type vms:DailyAnalysisListViewModel}">
+                    <views:DailyAnalysisListView />
+                </DataTemplate>
+                
+                <DataTemplate DataType="{x:Type vms:DailyAnalysisTextViewModel}">
+                    <views:DailyAnalysisTextView />
                 </DataTemplate>
             </Grid.Resources>
             

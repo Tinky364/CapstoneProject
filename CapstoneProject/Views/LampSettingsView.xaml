@@ -303,7 +303,7 @@
                         Grid.Column="0"
                         MinWidth="75"
                         Margin="3,0,0,3"
-                        Command="{Binding GoToLampAnalysisViewCommand}"
+                        Command="{Binding GoToLandingPageViewCommand}"
                         Style="{StaticResource Button}">
                         <Button.Resources>
                             <Style TargetType="Border">

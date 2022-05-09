@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,22 +12,22 @@ namespace CapstoneProject.Services;
 public class LampConnectionService
 {
     private readonly ConnectedLampStore _connectedLampStore;
-    private readonly JsonDatabaseService _jsonDatabaseService;
+    private readonly DatabaseService _databaseService;
     private readonly Random _random;
-    public static string[] Ports;
+    public static List<string> Ports;
 
     public LampConnectionService(
-        ConnectedLampStore connectedLampStore, JsonDatabaseService jsonDatabaseService
+        ConnectedLampStore connectedLampStore, DatabaseService databaseService
     )
     {
         _connectedLampStore = connectedLampStore;
-        _jsonDatabaseService = jsonDatabaseService;
+        _databaseService = databaseService;
         _random = new Random();
-        Ports = new[] {"COM1", "COM2", "COM3"}; // _ports = SerialPort.GetPortNames();
+        Ports = new List<string> {"COM1", "COM2", "COM3"}; // _ports = SerialPort.GetPortNames();
     }
 
     // TODO Replace placeholder method logic.
-    public async Task ConnectLamp(string selectedPort, int dummyId)
+    public async Task ConnectLamp(string selectedPort, int dummyLampId, string dummyLampName)
     {
         /*try
         {
@@ -41,16 +42,26 @@ public class LampConnectionService
         }*/
 
         // TODO Create the lamp instance via connection. 
-        int lampId = dummyId;
+        int lampId = dummyLampId;
+        string lampName = dummyLampName;
+        bool isLampNameChanged = false;
+        string previousLampName = "";
+        
         // Checks connected lamp is connected this PC before. If connected before, use the
         // database constructed lamp.
-        if (_jsonDatabaseService.IsLampExistInDatabase(lampId))
+        if (_databaseService.IsDatabaseLampExist(lampId))
         {
-            if (_jsonDatabaseService.GetDatabaseLamp(lampId, out Lamp lamp))
+            if (_databaseService.GetDatabaseLamp(lampId, out Lamp lamp))
             {
+                if (lampName != lamp.Name)
+                {
+                    previousLampName = lamp.Name;
+                    isLampNameChanged = true;
+                }
+                
                 _connectedLampStore.Lamp = lamp;
                 _connectedLampStore.Lamp.InitializeConnection(
-                    "LampName", new TimeSpan(_random.Next(0, 24), _random.Next(0, 59), 0),
+                    lampName, new TimeSpan(_random.Next(0, 24), _random.Next(0, 59), 0),
                     new TimeSpan(_random.Next(0, 24), _random.Next(0, 59), 0), _random.Next(1, 101),
                     _random.NextDouble() >= 0.5
                 );
@@ -66,12 +77,12 @@ public class LampConnectionService
         else // If not connected before, construct a new lamp and update the database.
         {
             _connectedLampStore.Lamp = new Lamp(
-                lampId, "LampName", true, 
+                lampId, lampName, true, 
                 new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
                 new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
                 _random.Next(1,101), _random.NextDouble() >= 0.5
             );
-            if (!_jsonDatabaseService.AddDatabaseLamp(_connectedLampStore.Lamp))
+            if (!_databaseService.AddDatabaseLamp(_connectedLampStore.Lamp))
             {
                 MessageBox.Show(
                     $"Could not add database lamp {lampId}!", "Warning", MessageBoxButton.OK,
@@ -81,9 +92,11 @@ public class LampConnectionService
         }
             
         await Task.Delay(1000); // TODO Remove this line.
-        await PullDailyDataOfLamp(_connectedLampStore.Lamp);
+        await ReadDailyDataOfLamp(_connectedLampStore.Lamp);
         _connectedLampStore.Lamp.SortAllDailyData();
-        await _jsonDatabaseService.PushDataOfLamp(_connectedLampStore.Lamp);
+        if (isLampNameChanged)
+            _databaseService.DeleteDatabaseLampOnLampNameChange(lampId, previousLampName);
+        await _databaseService.WriteDatabaseLampData(_connectedLampStore.Lamp);
         _connectedLampStore.OnLampConnected(_connectedLampStore.Lamp);
     }
 
@@ -125,7 +138,7 @@ public class LampConnectionService
     }
         
     // TODO replace placeholder method logic
-    private async Task PullDailyDataOfLamp(Lamp lamp)
+    private async Task ReadDailyDataOfLamp(Lamp lamp)
     {
         try
         {
@@ -143,7 +156,7 @@ public class LampConnectionService
         }
     }
 
-    public static string[] GetPorts()
+    public static List<string> GetPorts()
     {
         return Ports;
     }

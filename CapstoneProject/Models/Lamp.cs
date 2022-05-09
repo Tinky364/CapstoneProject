@@ -31,10 +31,10 @@ public class Lamp
         _dailyDataList = new List<LampDailyData>();
     }
 
-    public Lamp(int id)
+    public Lamp(int id, string name)
     {
         Id = id;
-        Name = default;
+        Name = name;
         ConnectionStatus = false;
         OnTime = default;
         OffTime = default;
@@ -55,10 +55,7 @@ public class Lamp
         Automated = automated;
     }
 
-    public IEnumerable<LampDailyData> GetAllDailyData()
-    {
-        return _dailyDataList;
-    }
+    public IEnumerable<LampDailyData> GetAllDailyData() => _dailyDataList;
 
     public void AddDailyData(LampDailyData dailyData)
     {

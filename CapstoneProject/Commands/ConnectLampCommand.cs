@@ -14,9 +14,10 @@ public class ConnectLampCommand : AsyncCommandBase
         
     public override async Task ExecuteAsync(object parameter)
     {
-        var values = (object[])parameter;
-        var selectedPort = (string)values[0];
-        var dummyId = (int)values[1];
-        await _lampConnectionService.ConnectLamp(selectedPort, dummyId);
+        object[] values = (object[])parameter;
+        string selectedPort = (string)values[0];
+        int dummyLampId = (int)values[1];
+        string dummyLampName = (string)values[2];
+        await _lampConnectionService.ConnectLamp(selectedPort, dummyLampId, dummyLampName);
     }
 }

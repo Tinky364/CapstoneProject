@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using CapstoneProject.Models;
 using CapstoneProject.Services;
 
@@ -6,6 +8,8 @@ namespace CapstoneProject.ViewModels;
 
 public class LandingPageViewModel : ViewModelBase
 {
+    private readonly DatabaseService _databaseService;
+    
     private ViewModelBase _overviewContent;
     public ViewModelBase OverviewContent
     {
@@ -39,39 +43,78 @@ public class LandingPageViewModel : ViewModelBase
         }
     }
 
+    private readonly ObservableCollection<string> _databaseLampIds;
+    public IEnumerable<string> DatabaseLampIds => _databaseLampIds;
+    
+    private string _selectedDatabaseLampId;
+    public string SelectedDatabaseLampId 
+    {
+        get => _selectedDatabaseLampId;
+        set
+        {
+            _selectedDatabaseLampId = value;
+            OnPropertyChanged(nameof(SelectedDatabaseLampId));
+            if (int.TryParse(SelectedDatabaseLampId, out int lampId))
+                AnalysisContent = _createDailyAnalysisListViewModel(lampId);
+        }
+    }
+
     private readonly Func<ViewModelBase> _createLampConnectionViewModel;
     private readonly Func<LampOverviewViewModel> _createLampOverviewViewModel;
-    private readonly Func<LampDailyAnalysisViewModel> _createDailyAnalysisViewModel;
+    private readonly Func<int, DailyAnalysisListViewModel> _createDailyAnalysisListViewModel;
+    private readonly Func<DailyAnalysisTextViewModel> _createDailyAnalysisTextViewModel;
         
     public LandingPageViewModel(
-        LampConnectionService lampConnectionService, 
-        Func<ViewModelBase> createLampConnectionViewModel,
+        LampConnectionService lampConnectionService,
+        DatabaseService databaseService,
+        Func<LampConnectionViewModel> createLampConnectionViewModel,
         Func<LampOverviewViewModel> createLampOverviewViewModel,
-        Func<LampDailyAnalysisViewModel> createLampDailyAnalysisViewModel
+        Func<int, DailyAnalysisListViewModel> createDailyAnalysisListViewModel,
+        Func<DailyAnalysisTextViewModel> createDailyAnalysisTextViewModel
     )
     {
         lampConnectionService.AddListenerToLampConnected(OnLampConnected);
         lampConnectionService.AddListenerToLampDisconnected(OnLampDisconnected);
 
+        _databaseService = databaseService;
+        _databaseLampIds = new ObservableCollection<string>();
+        UpdateDatabaseLampIdsList();
+        
         _createLampConnectionViewModel = createLampConnectionViewModel;
         _createLampOverviewViewModel = createLampOverviewViewModel;
-        _createDailyAnalysisViewModel = createLampDailyAnalysisViewModel;
+        _createDailyAnalysisListViewModel = createDailyAnalysisListViewModel;
+        _createDailyAnalysisTextViewModel = createDailyAnalysisTextViewModel;
 
-        if (lampConnectionService.IsLampConnected()) OnLampConnected(null);
-        else OnLampDisconnected();
+        if (lampConnectionService.IsLampConnected())
+        {
+            OnLampConnected(lampConnectionService.GetConnectedLamp());
+        }
+        else
+        {
+            AnalysisContent = _createDailyAnalysisTextViewModel();
+            OnLampDisconnected();
+        }
+    }
+
+    private void UpdateDatabaseLampIdsList()
+    {
+        _databaseLampIds.Clear();
+        foreach (int lampId in _databaseService.GetAllDatabaseLampIds())
+            _databaseLampIds.Add(lampId.ToString());
     }
 
     private void OnLampConnected(Lamp lamp)
     {
         OverviewContent = _createLampOverviewViewModel();
-        AnalysisContent = _createDailyAnalysisViewModel();
+        AnalysisContent = _createDailyAnalysisListViewModel(lamp.Id);
         OverviewHeader = "Lamp Overview";
+        UpdateDatabaseLampIdsList();
+        SelectedDatabaseLampId = lamp.Id.ToString();
     }
 
     private void OnLampDisconnected()
     {
         OverviewContent = _createLampConnectionViewModel();
-        AnalysisContent = null;
         OverviewHeader = "Lamp Connection";
     }
 }

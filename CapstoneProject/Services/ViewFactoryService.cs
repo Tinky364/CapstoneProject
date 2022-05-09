@@ -7,19 +7,23 @@ public class ViewFactoryService
 {
     private readonly NavigationStore _navigationStore;
     private readonly LampConnectionService _lampConnectionService;
+    private readonly DatabaseService _databaseService;
 
     public ViewFactoryService(
-        NavigationStore navigationStore, LampConnectionService lampConnectionService
+        NavigationStore navigationStore, LampConnectionService lampConnectionService, 
+        DatabaseService databaseService
     )
     {
         _navigationStore = navigationStore;
         _lampConnectionService = lampConnectionService;
+        _databaseService = databaseService;
     }
         
     public LandingPageViewModel LandingPage()
     {
         return new LandingPageViewModel(
-            _lampConnectionService, LampConnection, LampOverview, LampDailyAnalysis
+            _lampConnectionService, _databaseService, LampConnection, LampOverview, 
+            DailyAnalysisList, DailyAnalysisText
         );
     }
         
@@ -35,15 +39,21 @@ public class ViewFactoryService
         );
     }
         
-    public LampDailyAnalysisViewModel LampDailyAnalysis()
+    public DailyAnalysisListViewModel DailyAnalysisList(int lampId)
     {
-        return new LampDailyAnalysisViewModel(_lampConnectionService);
+        return new DailyAnalysisListViewModel(_databaseService, lampId);
+    }
+
+    public DailyAnalysisTextViewModel DailyAnalysisText()
+    {
+        return new DailyAnalysisTextViewModel();
     }
 
     public LampSettingsViewModel LampSettings()
     {
         return new LampSettingsViewModel(
-            _lampConnectionService, new NavigationService(_navigationStore, LandingPage)
+            _lampConnectionService, _databaseService,
+            new NavigationService(_navigationStore, LandingPage)
         );
     }
 }

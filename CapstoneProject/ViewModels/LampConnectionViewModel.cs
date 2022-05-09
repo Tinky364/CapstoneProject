@@ -20,14 +20,26 @@ public class LampConnectionViewModel : ViewModelBase
     }
 
     // TODO Remove
-    private int _dummyId = 123;
-    public int DummyId
+    private int _dummyLampId = 123;
+    public int DummyLampId
     {
-        get => _dummyId;
+        get => _dummyLampId;
         set
         {
-            _dummyId = value;
-            OnPropertyChanged(nameof(DummyId));
+            _dummyLampId = value;
+            OnPropertyChanged(nameof(DummyLampId));
+        }
+    }
+    
+    // TODO Remove
+    private string _dummyLampName = "LampName";
+    public string DummyLampName
+    {
+        get => _dummyLampName;
+        set
+        {
+            _dummyLampName = value;
+            OnPropertyChanged(nameof(DummyLampName));
         }
     }
         

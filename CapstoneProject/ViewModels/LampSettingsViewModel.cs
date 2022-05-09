@@ -75,12 +75,12 @@ public class LampSettingsViewModel : ViewModelBase
         
     public LampViewModel LampViewModel { get; }
         
-    public ICommand GoToLampAnalysisViewCommand { get; }
+    public ICommand GoToLandingPageViewCommand { get; }
     public ICommand SaveLampSettingsCommand { get; }
 
     public LampSettingsViewModel(
-        LampConnectionService lampConnectionService,
-        NavigationService lampAnalysisViewNavigationService)
+        LampConnectionService lampConnectionService, DatabaseService databaseService, 
+        NavigationService landingPageViewNavigationService)
     {
         Lamp lamp = lampConnectionService.GetConnectedLamp();
             
@@ -93,14 +93,14 @@ public class LampSettingsViewModel : ViewModelBase
         _offTimeMin = lamp.OffTime.ToString(@"mm");
         _automated = LampViewModel.Automated;
             
-        GoToLampAnalysisViewCommand = new NavigateCommand(lampAnalysisViewNavigationService);
-        SaveLampSettingsCommand = new SaveLampSettingsCommand(lamp, this);
+        GoToLandingPageViewCommand = new NavigateCommand(landingPageViewNavigationService);
+        SaveLampSettingsCommand = new SaveLampSettingsCommand(lamp, this, databaseService);
             
-        lampConnectionService.AddListenerToLampConnected(OnLampConnected);
+        lampConnectionService.AddListenerToLampDisconnected(OnLampDisconnected);
     }
 
-    private void OnLampConnected(Lamp lamp)
+    private void OnLampDisconnected()
     {
-            
+        GoToLandingPageViewCommand.Execute(null);
     }
 }

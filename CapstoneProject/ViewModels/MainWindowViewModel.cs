@@ -2,13 +2,13 @@
 
 namespace CapstoneProject.ViewModels;
 
-public class MainViewModel : ViewModelBase
+public class MainWindowViewModel : ViewModelBase
 {
     private readonly NavigationStore _navigationStore;
 
     public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
-    public MainViewModel(NavigationStore navigationStore)
+    public MainWindowViewModel(NavigationStore navigationStore)
     {
         _navigationStore = navigationStore;
 
