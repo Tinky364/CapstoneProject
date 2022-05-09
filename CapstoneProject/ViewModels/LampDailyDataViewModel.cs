@@ -1,48 +1,45 @@
-﻿using System.Dynamic;
-using System.Globalization;
-using CapstoneProject.Models;
+﻿using CapstoneProject.Models;
 
-namespace CapstoneProject.ViewModels
+namespace CapstoneProject.ViewModels;
+
+public class LampDailyDataViewModel : ViewModelBase
 {
-    public class LampDailyDataViewModel : ViewModelBase
-    {
-        private readonly LampDailyData _lampDailyData;
+    private readonly LampDailyData _lampDailyData;
 
-        public string DateTime => _lampDailyData.DateTime.ToString("d");
+    public string DateTime => _lampDailyData.DateTime.ToString("d");
         
-        public string BatteryChargeMin
+    public string BatteryChargeMin
+    {
+        get
         {
-            get
-            {
-                float totalMin = _lampDailyData.BatteryChargeMin;
-                int hour = (int)(totalMin / 60);
-                int min = (int)(totalMin % 60);
+            float totalMin = _lampDailyData.BatteryChargeMin;
+            int hour = (int)(totalMin / 60);
+            int min = (int)(totalMin % 60);
                 
-                if (min == 0 && hour == 0) return "0";
-                if (hour == 0) return $"{min}m";
-                if (min == 0) return $"{hour}h";
-                return $"{hour}h {min}m";
-            }
+            if (min == 0 && hour == 0) return "0";
+            if (hour == 0) return $"{min}m";
+            if (min == 0) return $"{hour}h";
+            return $"{hour}h {min}m";
         }
+    }
 
-        public string BatteryConsumptionMin
+    public string BatteryConsumptionMin
+    {
+        get
         {
-            get
-            {
-                float totalMin = _lampDailyData.BatteryConsumptionMin;
-                int hour = (int)(totalMin / 60);
-                int min = (int)(totalMin % 60);
+            float totalMin = _lampDailyData.BatteryConsumptionMin;
+            int hour = (int)(totalMin / 60);
+            int min = (int)(totalMin % 60);
                 
-                if (min == 0 && hour == 0) return "0";
-                if (hour == 0) return $"{min}m";
-                if (min == 0) return $"{hour}h";
-                return $"{hour}h {min}m";
-            }
+            if (min == 0 && hour == 0) return "0";
+            if (hour == 0) return $"{min}m";
+            if (min == 0) return $"{hour}h";
+            return $"{hour}h {min}m";
         }
+    }
 
-        public LampDailyDataViewModel(LampDailyData lampDailyData)
-        {
-            _lampDailyData = lampDailyData;
-        }
+    public LampDailyDataViewModel(LampDailyData lampDailyData)
+    {
+        _lampDailyData = lampDailyData;
     }
 }

@@ -2,24 +2,23 @@
 using CapstoneProject.Stores;
 using CapstoneProject.ViewModels;
 
-namespace CapstoneProject.Services
+namespace CapstoneProject.Services;
+
+public class NavigationService
 {
-    public class NavigationService
+    private readonly NavigationStore _navigationStore;
+    private readonly Func<ViewModelBase> _createViewModel;
+
+    public NavigationService(
+        NavigationStore navigationStore, Func<ViewModelBase> createViewModel
+    )
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly Func<ViewModelBase> _createViewModel;
+        _navigationStore = navigationStore;
+        _createViewModel = createViewModel;
+    }
 
-        public NavigationService(
-            NavigationStore navigationStore, Func<ViewModelBase> createViewModel
-        )
-        {
-            _navigationStore = navigationStore;
-            _createViewModel = createViewModel;
-        }
-
-        public void Navigate()
-        {
-            _navigationStore.CurrentViewModel = _createViewModel();
-        }
+    public void Navigate()
+    {
+        _navigationStore.CurrentViewModel = _createViewModel();
     }
 }

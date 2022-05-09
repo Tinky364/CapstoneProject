@@ -6,45 +6,49 @@ using CapstoneProject.Exceptions;
 using CapstoneProject.Models;
 using CapstoneProject.Stores;
 
-namespace CapstoneProject.Services
+namespace CapstoneProject.Services;
+
+public class LampConnectionService
 {
-    public class LampConnectionService
+    private readonly ConnectedLampStore _connectedLampStore;
+    private readonly JsonDatabaseService _jsonDatabaseService;
+    private readonly Random _random;
+    public static string[] Ports;
+
+    public LampConnectionService(
+        ConnectedLampStore connectedLampStore, JsonDatabaseService jsonDatabaseService
+    )
     {
-        private readonly ConnectedLampStore _connectedLampStore;
-        private readonly JsonDatabaseService _jsonDatabaseService;
-        private readonly Random _random;
-        public static string[] Ports;
+        _connectedLampStore = connectedLampStore;
+        _jsonDatabaseService = jsonDatabaseService;
+        _random = new Random();
+        Ports = new[] {"COM1", "COM2", "COM3"}; // _ports = SerialPort.GetPortNames();
+    }
 
-        public LampConnectionService(
-            ConnectedLampStore connectedLampStore, JsonDatabaseService jsonDatabaseService
-        )
+    // TODO Replace placeholder method logic.
+    public async Task ConnectLamp(string selectedPort, int dummyId)
+    {
+        /*try
         {
-            _connectedLampStore = connectedLampStore;
-            _jsonDatabaseService = jsonDatabaseService;
-            _random = new Random();
-            Ports = new[] {"COM1", "COM2", "COM3"}; // _ports = SerialPort.GetPortNames();
+            _connectedLampStore.SerialPort = new SerialPort(
+                selectedPort, 9600, Parity.None, 8, StopBits.One
+            );
+            _connectedLampStore.SerialPort.Open();
         }
-
-        // TODO Replace placeholder method logic.
-        public async Task ConnectLamp(string selectedPort, int dummyId)
+        catch (Exception e)
         {
-            /*try
-            {
-                _connectedLampStore.SerialPort = new SerialPort(
-                    selectedPort, 9600, Parity.None, 8, StopBits.One
-                );
-                _connectedLampStore.SerialPort.Open();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }*/
+            MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }*/
 
-            // TODO Create the lamp instance via connection. 
-            int lampId = dummyId;
-            if (_jsonDatabaseService.AllDatabaseLamps.ContainsKey(lampId))
+        // TODO Create the lamp instance via connection. 
+        int lampId = dummyId;
+        // Checks connected lamp is connected this PC before. If connected before, use the
+        // database constructed lamp.
+        if (_jsonDatabaseService.IsLampExistInDatabase(lampId))
+        {
+            if (_jsonDatabaseService.GetDatabaseLamp(lampId, out Lamp lamp))
             {
-                _connectedLampStore.Lamp = _jsonDatabaseService.AllDatabaseLamps[lampId];
+                _connectedLampStore.Lamp = lamp;
                 _connectedLampStore.Lamp.InitializeConnection(
                     "LampName", new TimeSpan(_random.Next(0, 24), _random.Next(0, 59), 0),
                     new TimeSpan(_random.Next(0, 24), _random.Next(0, 59), 0), _random.Next(1, 101),
@@ -53,83 +57,94 @@ namespace CapstoneProject.Services
             }
             else
             {
-                _connectedLampStore.Lamp = new Lamp(
-                    lampId, "LampName", true, 
-                    new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
-                    new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
-                    _random.Next(1,101), _random.NextDouble() >= 0.5
-                );
-                _jsonDatabaseService.AllDatabaseLamps.Add(
-                    _connectedLampStore.Lamp.Id, _connectedLampStore.Lamp
+                MessageBox.Show(
+                    $"Could not find database lamp {lampId}!", "Warning", MessageBoxButton.OK,
+                    MessageBoxImage.Warning
                 );
             }
+        }
+        else // If not connected before, construct a new lamp and update the database.
+        {
+            _connectedLampStore.Lamp = new Lamp(
+                lampId, "LampName", true, 
+                new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
+                new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
+                _random.Next(1,101), _random.NextDouble() >= 0.5
+            );
+            if (!_jsonDatabaseService.AddDatabaseLamp(_connectedLampStore.Lamp))
+            {
+                MessageBox.Show(
+                    $"Could not add database lamp {lampId}!", "Warning", MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+            }
+        }
             
-            await Task.Delay(1000); // TODO Remove this line.
-            await PullDailyDataOfLamp(_connectedLampStore.Lamp);
-            _connectedLampStore.Lamp.SortAllDailyData();
-            await _jsonDatabaseService.PushDataOfLamp(_connectedLampStore.Lamp);
-            _connectedLampStore.OnLampConnected(_connectedLampStore.Lamp);
-        }
+        await Task.Delay(1000); // TODO Remove this line.
+        await PullDailyDataOfLamp(_connectedLampStore.Lamp);
+        _connectedLampStore.Lamp.SortAllDailyData();
+        await _jsonDatabaseService.PushDataOfLamp(_connectedLampStore.Lamp);
+        _connectedLampStore.OnLampConnected(_connectedLampStore.Lamp);
+    }
 
-        // TODO Replace placeholder method logic.
-        public void DisconnectLamp()
+    // TODO Replace placeholder method logic.
+    public void DisconnectLamp()
+    {
+        /*try
         {
-            /*try
-            {
-                _connectedLampStore.SerialPort.Close();
-                _connectedLampStore.SerialPort = null;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }*/
+            _connectedLampStore.SerialPort.Close();
+            _connectedLampStore.SerialPort = null;
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }*/
             
-            _connectedLampStore.Lamp = null;
-            _connectedLampStore.OnLampDisconnected();
-        }
+        _connectedLampStore.Lamp = null;
+        _connectedLampStore.OnLampDisconnected();
+    }
         
-        public Lamp GetConnectedLamp()
-        {
-            return _connectedLampStore.Lamp;
-        }
+    public Lamp GetConnectedLamp()
+    {
+        return _connectedLampStore.Lamp;
+    }
 
-        public bool IsLampConnected()
-        {
-            return _connectedLampStore.Lamp != null && _connectedLampStore.Lamp.ConnectionStatus;
-        }
+    public bool IsLampConnected()
+    {
+        return _connectedLampStore.Lamp != null && _connectedLampStore.Lamp.ConnectionStatus;
+    }
         
-        public void AddListenerToLampConnected(Action<Lamp> onAction)
-        {
-            _connectedLampStore.LampConnected += onAction;
-        }
+    public void AddListenerToLampConnected(Action<Lamp> onAction)
+    {
+        _connectedLampStore.LampConnected += onAction;
+    }
 
-        public void AddListenerToLampDisconnected(Action onAction)
-        {
-            _connectedLampStore.LampDisconnected += onAction;
-        }
+    public void AddListenerToLampDisconnected(Action onAction)
+    {
+        _connectedLampStore.LampDisconnected += onAction;
+    }
         
-        // TODO replace placeholder method logic
-        private async Task PullDailyDataOfLamp(Lamp lamp)
+    // TODO replace placeholder method logic
+    private async Task PullDailyDataOfLamp(Lamp lamp)
+    {
+        try
         {
-            try
-            {
-                lamp.AddDailyData(
-                    new LampDailyData(
-                        new DateTime(
-                            _random.Next(2020, 2023), _random.Next(1, 13), _random.Next(1, 31)
-                        ), _random.Next(200, 500), _random.Next(200, 500)
-                    )
-                );
-            }
-            catch (LampDailyDataConflictException e)
-            {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            lamp.AddDailyData(
+                new LampDailyData(
+                    new DateTime(
+                        _random.Next(2020, 2023), _random.Next(1, 13), _random.Next(1, 31)
+                    ), _random.Next(200, 500), _random.Next(200, 500)
+                )
+            );
         }
+        catch (LampDailyDataConflictException e)
+        {
+            MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 
-        public static string[] GetPorts()
-        {
-            return Ports;
-        }
+    public static string[] GetPorts()
+    {
+        return Ports;
     }
 }

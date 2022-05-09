@@ -3,105 +3,104 @@ using CapstoneProject.Commands;
 using CapstoneProject.Models;
 using CapstoneProject.Services;
 
-namespace CapstoneProject.ViewModels
+namespace CapstoneProject.ViewModels;
+
+public class LampSettingsViewModel : ViewModelBase
 {
-    public class LampSettingsViewModel : ViewModelBase
+    private string _name;
+    public string Name
     {
-        private string _name;
-        public string Name
+        get => _name;
+        set
         {
-            get => _name;
-            set
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
+            _name = value;
+            OnPropertyChanged(nameof(Name));
         }
+    }
 
-        public string OnTime => $"{OnTimeHour}:{OnTimeMin}";
-        private string _onTimeHour;
-        public string OnTimeHour
+    public string OnTime => $"{OnTimeHour}:{OnTimeMin}";
+    private string _onTimeHour;
+    public string OnTimeHour
+    {
+        get => _onTimeHour;
+        set
         {
-            get => _onTimeHour;
-            set
-            {
-                _onTimeHour = value;
-                OnPropertyChanged(nameof(OnTimeHour));
-            }
+            _onTimeHour = value;
+            OnPropertyChanged(nameof(OnTimeHour));
         }
-        private string _onTimeMin;
-        public string OnTimeMin
+    }
+    private string _onTimeMin;
+    public string OnTimeMin
+    {
+        get => _onTimeMin;
+        set
         {
-            get => _onTimeMin;
-            set
-            {
-                _onTimeMin = value;
-                OnPropertyChanged(nameof(OnTimeMin));
-            }
+            _onTimeMin = value;
+            OnPropertyChanged(nameof(OnTimeMin));
         }
+    }
         
-        public string OffTime => $"{OffTimeHour}:{OffTimeMin}";
-        private string _offTimeHour;
-        public string OffTimeHour
+    public string OffTime => $"{OffTimeHour}:{OffTimeMin}";
+    private string _offTimeHour;
+    public string OffTimeHour
+    {
+        get => _offTimeHour;
+        set
         {
-            get => _offTimeHour;
-            set
-            {
-                _offTimeHour = value;
-                OnPropertyChanged(nameof(OffTimeHour));
-            }
+            _offTimeHour = value;
+            OnPropertyChanged(nameof(OffTimeHour));
         }
-        private string _offTimeMin;
-        public string OffTimeMin
+    }
+    private string _offTimeMin;
+    public string OffTimeMin
+    {
+        get => _offTimeMin;
+        set
         {
-            get => _offTimeMin;
-            set
-            {
-                _offTimeMin = value;
-                OnPropertyChanged(nameof(OffTimeMin));
-            }
+            _offTimeMin = value;
+            OnPropertyChanged(nameof(OffTimeMin));
         }
+    }
 
-        private bool _automated;
-        public bool Automated
+    private bool _automated;
+    public bool Automated
+    {
+        get => _automated;
+        set
         {
-            get => _automated;
-            set
-            {
-                _automated = value;
-                OnPropertyChanged(nameof(Automated));
-            }
+            _automated = value;
+            OnPropertyChanged(nameof(Automated));
         }
+    }
         
-        public LampViewModel LampViewModel { get; }
+    public LampViewModel LampViewModel { get; }
         
-        public ICommand GoToLampAnalysisViewCommand { get; }
-        public ICommand SaveLampSettingsCommand { get; }
+    public ICommand GoToLampAnalysisViewCommand { get; }
+    public ICommand SaveLampSettingsCommand { get; }
 
-        public LampSettingsViewModel(
-            LampConnectionService lampConnectionService,
-            NavigationService lampAnalysisViewNavigationService)
-        {
-            Lamp lamp = lampConnectionService.GetConnectedLamp();
+    public LampSettingsViewModel(
+        LampConnectionService lampConnectionService,
+        NavigationService lampAnalysisViewNavigationService)
+    {
+        Lamp lamp = lampConnectionService.GetConnectedLamp();
             
-            LampViewModel = new LampViewModel(lamp);
+        LampViewModel = new LampViewModel(lamp);
             
-            _name = LampViewModel.Name;
-            _onTimeHour = lamp.OnTime.ToString(@"hh");
-            _onTimeMin = lamp.OnTime.ToString(@"mm");
-            _offTimeHour = lamp.OffTime.ToString(@"hh");
-            _offTimeMin = lamp.OffTime.ToString(@"mm");
-            _automated = LampViewModel.Automated;
+        _name = LampViewModel.Name;
+        _onTimeHour = lamp.OnTime.ToString(@"hh");
+        _onTimeMin = lamp.OnTime.ToString(@"mm");
+        _offTimeHour = lamp.OffTime.ToString(@"hh");
+        _offTimeMin = lamp.OffTime.ToString(@"mm");
+        _automated = LampViewModel.Automated;
             
-            GoToLampAnalysisViewCommand = new NavigateCommand(lampAnalysisViewNavigationService);
-            SaveLampSettingsCommand = new SaveLampSettingsCommand(lamp, this);
+        GoToLampAnalysisViewCommand = new NavigateCommand(lampAnalysisViewNavigationService);
+        SaveLampSettingsCommand = new SaveLampSettingsCommand(lamp, this);
             
-            lampConnectionService.AddListenerToLampConnected(OnLampConnected);
-        }
+        lampConnectionService.AddListenerToLampConnected(OnLampConnected);
+    }
 
-        private void OnLampConnected(Lamp lamp)
-        {
+    private void OnLampConnected(Lamp lamp)
+    {
             
-        }
     }
 }

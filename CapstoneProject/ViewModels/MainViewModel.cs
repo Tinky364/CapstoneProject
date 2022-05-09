@@ -1,23 +1,22 @@
 ﻿using CapstoneProject.Stores;
 
-namespace CapstoneProject.ViewModels
+namespace CapstoneProject.ViewModels;
+
+public class MainViewModel : ViewModelBase
 {
-    public class MainViewModel : ViewModelBase
+    private readonly NavigationStore _navigationStore;
+
+    public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+
+    public MainViewModel(NavigationStore navigationStore)
     {
-        private readonly NavigationStore _navigationStore;
+        _navigationStore = navigationStore;
 
-        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+        _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+    }
 
-        public MainViewModel(NavigationStore navigationStore)
-        {
-            _navigationStore = navigationStore;
-
-            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-        }
-
-        private void OnCurrentViewModelChanged()
-        {
-            OnPropertyChanged(nameof(CurrentViewModel));
-        }
+    private void OnCurrentViewModelChanged()
+    {
+        OnPropertyChanged(nameof(CurrentViewModel));
     }
 }

@@ -1,19 +1,18 @@
 ﻿using CapstoneProject.Services;
 
-namespace CapstoneProject.Commands
+namespace CapstoneProject.Commands;
+
+public class NavigateCommand : CommandBase
 {
-    public class NavigateCommand : CommandBase
+    private readonly NavigationService _navigationService;
+
+    public NavigateCommand(NavigationService navigationService)
     {
-        private readonly NavigationService _navigationService;
+        _navigationService = navigationService;
+    }
 
-        public NavigateCommand(NavigationService navigationService)
-        {
-            _navigationService = navigationService;
-        }
-
-        public override void Execute(object parameter)
-        {
-            _navigationService.Navigate();
-        }
+    public override void Execute(object parameter)
+    {
+        _navigationService.Navigate();
     }
 }
