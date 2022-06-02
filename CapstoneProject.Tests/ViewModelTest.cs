@@ -5,7 +5,7 @@ using Xunit;
 
 namespace CapstoneProject.Tests;
 
-public class ViewModelFactoryServiceTest
+public class ViewModelTest
 {
     [Fact]
     public void Create_LandingPageViewModel()
