@@ -44,8 +44,8 @@ public class LampConnectionService
         }*/
 
         // TODO Create the lamp instance via connection. 
-        int lampId = 132564; // int lampId = dummyLampId;
-        string lampName = "Lamp132564"; // string lampName = dummyLampName;
+        int lampId = dummyLampId;
+        string lampName = dummyLampName;
         bool isLampNameChanged = false;
         string previousLampName = "";
         

@@ -14,7 +14,7 @@ public partial class App : Application
     private readonly ConnectedLampStore _connectedLampStore;
     private readonly DatabaseService _databaseService;
     private readonly LampConnectionService _lampConnectionService;
-    private readonly ViewFactoryService _viewFactoryService;
+    private readonly ViewModelFactoryService _viewModelFactoryService;
 
     public App()
     {
@@ -22,14 +22,14 @@ public partial class App : Application
         _connectedLampStore = new ConnectedLampStore();
         _databaseService = new DatabaseService();
         _lampConnectionService = new LampConnectionService(_connectedLampStore, _databaseService);
-        _viewFactoryService = new ViewFactoryService(
+        _viewModelFactoryService = new ViewModelFactoryService(
             _navigationStore, _lampConnectionService, _databaseService
         );
     }
 
     protected override void OnStartup(StartupEventArgs e)
     {
-        _navigationStore.CurrentViewModel = _viewFactoryService.LandingPage();
+        _navigationStore.CurrentViewModel = _viewModelFactoryService.LandingPage();
         MainWindow = new MainWindowView {DataContext = new MainWindowViewModel(_navigationStore)};
         MainWindow.Show();
             

@@ -68,81 +68,81 @@
                     </ComboBox>
                 </Grid>
                 
-            <!--     ~1~  Dummy Lamp ID  @1@ -->
-            <!--     <Border Grid.Row="1" Style="{StaticResource FloralPropertyBorder}" /> -->
-            <!--     <Grid Grid.Row="1"> -->
-            <!--         <Grid.ColumnDefinitions> -->
-            <!--             <ColumnDefinition Width="Auto" /> -->
-            <!--             <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" /> -->
-            <!--             <ColumnDefinition Width="Auto" /> -->
-            <!--         </Grid.ColumnDefinitions> -->
-            <!--          -->
-            <!--         <Image -->
-            <!--             Grid.Column="0" -->
-            <!--             MaxHeight="60" -->
-            <!--             Margin="7" -->
-            <!--             Source="pack://application:,,,/Icons/Id.png" -->
-            <!--             Stretch="Uniform" /> -->
-            <!--         <StackPanel -->
-            <!--             Grid.Column="1" -->
-            <!--             Margin="5,0,10,0" -->
-            <!--             VerticalAlignment="Center"> -->
-            <!--             <TextBlock -->
-            <!--                 Margin="0,0,0,-5" -->
-            <!--                 Style="{StaticResource Property}" -->
-            <!--                 Text="Dummy" /> -->
-            <!--             <TextBlock Style="{StaticResource Property}" Text="ID:" /> -->
-            <!--         </StackPanel> -->
-            <!--         <TextBox -->
-            <!--             Grid.Column="2" -->
-            <!--             VerticalAlignment="Center" -->
-            <!--             Style="{StaticResource ShortTextBox}" -->
-            <!--             Text="{Binding DummyLampId, UpdateSourceTrigger=PropertyChanged}"> -->
-            <!--             <TextBox.Resources> -->
-            <!--                 <Style TargetType="Border"> -->
-            <!--                     <Setter Property="CornerRadius" Value="5" /> -->
-            <!--                 </Style> -->
-            <!--             </TextBox.Resources> -->
-            <!--         </TextBox> -->
-            <!--     </Grid> -->
-            <!--      -->
-            <!--     ~1~  Dummy Lamp Name  @1@ -->
-            <!--     <Border Grid.Row="2" Style="{StaticResource AntiquePropertyBorder}" /> -->
-            <!--     <Grid Grid.Row="2"> -->
-            <!--         <Grid.ColumnDefinitions> -->
-            <!--             <ColumnDefinition Width="Auto" /> -->
-            <!--             <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" /> -->
-            <!--             <ColumnDefinition Width="Auto" /> -->
-            <!--         </Grid.ColumnDefinitions> -->
-            <!--         -->
-            <!--         <Image -->
-            <!--             Grid.Column="0" -->
-            <!--             MaxHeight="60" -->
-            <!--             Margin="7" -->
-            <!--             Source="pack://application:,,,/Icons/Name.png" -->
-            <!--             Stretch="Uniform" /> -->
-            <!--         <StackPanel -->
-            <!--             Grid.Column="1" -->
-            <!--             Margin="5,0,10,0" -->
-            <!--             VerticalAlignment="Center"> -->
-            <!--             <TextBlock -->
-            <!--                 Margin="0,0,0,-5" -->
-            <!--                 Style="{StaticResource Property}" -->
-            <!--                 Text="Dummy" /> -->
-            <!--             <TextBlock Style="{StaticResource Property}" Text="Name:" /> -->
-            <!--         </StackPanel> -->
-            <!--         <TextBox -->
-            <!--             Grid.Column="2" -->
-            <!--             VerticalAlignment="Center" -->
-            <!--             Style="{StaticResource ShortTextBox}" -->
-            <!--             Text="{Binding DummyLampName, UpdateSourceTrigger=PropertyChanged}"> -->
-            <!--             <TextBox.Resources> -->
-            <!--                 <Style TargetType="Border"> -->
-            <!--                     <Setter Property="CornerRadius" Value="5" /> -->
-            <!--                 </Style> -->
-            <!--             </TextBox.Resources> -->
-            <!--         </TextBox> -->
-            <!--     </Grid> -->
+            <!--  Dummy Lamp ID  -->
+            <Border Grid.Row="1" Style="{StaticResource FloralPropertyBorder}" />
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+            
+                <Image
+                    Grid.Column="0"
+                    MaxHeight="60"
+                    Margin="7"
+                    Source="pack://application:,,,/Icons/Id.png"
+                    Stretch="Uniform" />
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="5,0,10,0"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="0,0,0,-5"
+                        Style="{StaticResource Property}"
+                        Text="Dummy" />
+                    <TextBlock Style="{StaticResource Property}" Text="ID:" />
+                </StackPanel>
+                <TextBox
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ShortTextBox}"
+                    Text="{Binding DummyLampId, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+            </Grid>
+            
+            <!--  Dummy Lamp Name  -->
+            <Border Grid.Row="2" Style="{StaticResource AntiquePropertyBorder}" />
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+            
+                <Image
+                    Grid.Column="0"
+                    MaxHeight="60"
+                    Margin="7"
+                    Source="pack://application:,,,/Icons/Name.png"
+                    Stretch="Uniform" />
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="5,0,10,0"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="0,0,0,-5"
+                        Style="{StaticResource Property}"
+                        Text="Dummy" />
+                    <TextBlock Style="{StaticResource Property}" Text="Name:" />
+                </StackPanel>
+                <TextBox
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ShortTextBox}"
+                    Text="{Binding DummyLampName, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+            </Grid>
             </Grid>
 
             <!--  Buttons  -->

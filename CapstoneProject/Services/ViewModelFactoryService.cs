@@ -3,13 +3,13 @@ using CapstoneProject.ViewModels;
 
 namespace CapstoneProject.Services;
 
-public class ViewFactoryService
+public class ViewModelFactoryService
 {
     private readonly NavigationStore _navigationStore;
     private readonly LampConnectionService _lampConnectionService;
     private readonly DatabaseService _databaseService;
 
-    public ViewFactoryService(
+    public ViewModelFactoryService(
         NavigationStore navigationStore, LampConnectionService lampConnectionService, 
         DatabaseService databaseService
     )
