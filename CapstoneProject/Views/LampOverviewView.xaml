@@ -199,36 +199,36 @@
                         Text="{Binding LampViewModel.OffTime}" />
                 </Grid>
 
-                <!--  Automated Turn On/Off  -->
-                <Border Grid.Row="6" Style="{StaticResource AntiquePropertyBorder}" />
-                <Grid Grid.Row="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Image
-                        Grid.Column="0"
-                        MaxHeight="60"
-                        Margin="7"
-                        Source="pack://application:,,,/Icons/AutomatedOnOff.png"
-                        Stretch="Uniform" />
-                    <StackPanel
-                        Grid.Column="1"
-                        Margin="5,0,10,0"
-                        VerticalAlignment="Center">
-                        <TextBlock
-                            Margin="0,0,0,-5"
-                            Style="{StaticResource Property}"
-                            Text="Automated" />
-                        <TextBlock Style="{StaticResource Property}" Text="Turn On Off:" />
-                    </StackPanel>
-                    <TextBlock
-                        Grid.Column="2"
-                        VerticalAlignment="Center"
-                        Text="{Binding Automated}" />
-                </Grid>
+                <!-- ~1~  Automated Turn On/Off  @1@ -->
+                <!-- <Border Grid.Row="6" Style="{StaticResource AntiquePropertyBorder}" /> -->
+                <!-- <Grid Grid.Row="6"> -->
+                <!--     <Grid.ColumnDefinitions> -->
+                <!--         <ColumnDefinition Width="Auto" /> -->
+                <!--         <ColumnDefinition Width="Auto" SharedSizeGroup="TextBlockColumn" /> -->
+                <!--         <ColumnDefinition Width="Auto" /> -->
+                <!--     </Grid.ColumnDefinitions> -->
+                <!-- -->
+                <!--     <Image -->
+                <!--         Grid.Column="0" -->
+                <!--         MaxHeight="60" -->
+                <!--         Margin="7" -->
+                <!--         Source="pack://application:,,,/Icons/AutomatedOnOff.png" -->
+                <!--         Stretch="Uniform" /> -->
+                <!--     <StackPanel -->
+                <!--         Grid.Column="1" -->
+                <!--         Margin="5,0,10,0" -->
+                <!--         VerticalAlignment="Center"> -->
+                <!--         <TextBlock -->
+                <!--             Margin="0,0,0,-5" -->
+                <!--             Style="{StaticResource Property}" -->
+                <!--             Text="Automated" /> -->
+                <!--         <TextBlock Style="{StaticResource Property}" Text="Turn On Off:" /> -->
+                <!--     </StackPanel> -->
+                <!--     <TextBlock -->
+                <!--         Grid.Column="2" -->
+                <!--         VerticalAlignment="Center" -->
+                <!--         Text="{Binding Automated}" /> -->
+                <!-- </Grid> -->
             </Grid>
 
             <!--  Buttons  -->
