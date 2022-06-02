@@ -8,7 +8,7 @@ public class LampConnectionViewModel : ViewModelBase
 {
     public ICommand ConnectLampCommand { get; }
 
-    private string _selectedPort = LampConnectionService.Ports[0];
+    private string _selectedPort;
     public string SelectedPort 
     {
         get => _selectedPort;
@@ -45,6 +45,8 @@ public class LampConnectionViewModel : ViewModelBase
         
     public LampConnectionViewModel(LampConnectionService lampConnectionService)
     {
+        if (LampConnectionService.Ports.Count > 0)
+            _selectedPort = LampConnectionService.Ports[0];
         ConnectLampCommand = new ConnectLampCommand(lampConnectionService);
     }
 }

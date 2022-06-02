@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using CapstoneProject.Exceptions;
@@ -23,7 +24,8 @@ public class LampConnectionService
         _connectedLampStore = connectedLampStore;
         _databaseService = databaseService;
         _random = new Random();
-        Ports = new List<string> {"COM1", "COM2", "COM3"}; // _ports = SerialPort.GetPortNames();
+        Ports = SerialPort.GetPortNames().ToList();
+        //Ports = new List<string> {"COM1", "COM2", "COM3"}; // Ports = SerialPort.GetPortNames().ToList();
     }
 
     // TODO Replace placeholder method logic.
@@ -42,8 +44,8 @@ public class LampConnectionService
         }*/
 
         // TODO Create the lamp instance via connection. 
-        int lampId = dummyLampId;
-        string lampName = dummyLampName;
+        int lampId = 132564; // int lampId = dummyLampId;
+        string lampName = "Lamp132564"; // string lampName = dummyLampName;
         bool isLampNameChanged = false;
         string previousLampName = "";
         
@@ -61,9 +63,7 @@ public class LampConnectionService
                 
                 _connectedLampStore.Lamp = lamp;
                 _connectedLampStore.Lamp.InitializeConnection(
-                    lampName, new TimeSpan(_random.Next(0, 24), _random.Next(0, 59), 0),
-                    new TimeSpan(_random.Next(0, 24), _random.Next(0, 59), 0), _random.Next(1, 101),
-                    _random.NextDouble() >= 0.5
+                    lampName, new TimeSpan(20, 0, 0), new TimeSpan(6, 0, 0), 96, true
                 );
             }
             else
