@@ -30,22 +30,34 @@ public class LampConnectionService
 
     // TODO Replace placeholder method logic.
     public async Task ConnectLamp(string selectedPort, int dummyLampId, string dummyLampName)
-    {
-        /*try
-        {
-            _connectedLampStore.SerialPort = new SerialPort(
-                selectedPort, 9600, Parity.None, 8, StopBits.One
-            );
-            _connectedLampStore.SerialPort.Open();
-        }
-        catch (Exception e)
-        {
-            MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }*/
-
-        // TODO Create the lamp instance via connection. 
+    { 
         int lampId = dummyLampId;
         string lampName = dummyLampName;
+        int batteryPercentage = 96;
+        bool isAutomated = true;
+        TimeSpan onTime = new TimeSpan(20, 0, 0);
+        TimeSpan offTime = new TimeSpan(6, 0, 0);
+        
+        // TODO Create the lamp instance via connection. 
+        // try
+        // {
+        //     _connectedLampStore.SerialPort = new SerialPort(
+        //         selectedPort, 9600, Parity.None, 8, StopBits.One
+        //     );
+        //     _connectedLampStore.SerialPort.Open();
+        //
+        //     lampId = ;
+        //     lampName = ;
+        //     batteryPercentage = ;
+        //     isAutomated = ;
+        //     onTime = ;
+        //     offTime = ;
+        // }
+        // catch (Exception e)
+        // {
+        //     MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        // }
+        
         bool isLampNameChanged = false;
         string previousLampName = "";
         
@@ -63,7 +75,7 @@ public class LampConnectionService
                 
                 _connectedLampStore.Lamp = lamp;
                 _connectedLampStore.Lamp.InitializeConnection(
-                    lampName, new TimeSpan(20, 0, 0), new TimeSpan(6, 0, 0), 96, true
+                    lampName, onTime, offTime, batteryPercentage, isAutomated
                 );
             }
             else
@@ -77,10 +89,7 @@ public class LampConnectionService
         else // If not connected before, construct a new lamp and update the database.
         {
             _connectedLampStore.Lamp = new Lamp(
-                lampId, lampName, true, 
-                new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
-                new TimeSpan(_random.Next(0,24), _random.Next(0,59), 0), 
-                _random.Next(1,101), _random.NextDouble() >= 0.5
+                lampId, lampName, true, onTime, offTime, batteryPercentage, isAutomated
             );
             if (!_databaseService.AddDatabaseLamp(_connectedLampStore.Lamp))
             {
